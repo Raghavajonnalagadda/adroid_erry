@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1E96C8</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="actionbar_background">#1E96C8</color>
+    <color name="acadmic_light">#CC3265</color>
+    <color name="acadmic_dark">#AE2B56</color>
+    <color name="character_light">#E24000</color>
+    <color name="character_dark">#C03600</color>
+    <color name="nutrition_light">#AA3421</color>
+    <color name="nutrition_Dark">#912C1C</color>
+    <color name="Emotional_light">#51369E</color>
+    <color name="Emotional_dark">#452E86</color>
+    <color name="Physical_light">#ED210C</color>
+    <color name="Physical_Dark">#CA1c0A</color>
+    <color name="Sprituality_light">#21267C</color>
+    <color name="Sprituality_Dark">#1C206A</color>
+    <color name="Social_light">#13387F</color>
+    <color name="Social_Dark">#10306C</color>
+    <color name="theme_color_app">#005394</color>
+    <color name="grey_text">#696969</color>
+    <color name="white_color">#ffffff</color>
+    <color name="red_color">#CA1c0A</color>
+
+    <color name="crop__button_bar">#f3f3f3</color>
+    <color name="crop__button_text">#666666</color>
+    <color name="crop__selector_pressed">#1a000000</color>
+    <color name="crop__selector_focused">#77000000</color>
+</resources>

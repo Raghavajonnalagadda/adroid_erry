@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:weightSum="1"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.32"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/character_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/background__character"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="32dp"/>
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/character_icon1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                />
+      </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.59"
+
+        >
+        <FrameLayout
+            android:id="@+id/container1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </FrameLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.09"
+            android:background="@color/acadmic_light"
+            >
+
+
+
+
+                />
+            <ImageView
+                android:id="@+id/definition"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/character_1"
+                android:layout_weight="1"
+                android:background="@color/character_dark"
+                android:padding="7dp"
+                />
+
+
+            <ImageView
+                android:id="@+id/bcvs"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/character_2"
+                android:layout_weight="1"
+                android:background="@color/character_light"
+                android:padding="7dp"
+                />
+
+
+
+            <ImageView
+                android:id="@+id/quote"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/character_3"
+                android:layout_weight="1"
+                android:background="@color/character_light"
+                android:padding="7dp"
+             
+                />
+
+            <ImageView
+                android:id="@+id/handbook"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/handbook"
+                android:layout_weight="1"
+                android:background="@color/character_light"
+                android:padding="7dp"
+
+                />
+
+
+        </LinearLayout>
+    </LinearLayout>

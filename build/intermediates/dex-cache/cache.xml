@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ashu Verma\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.5\442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375\universal-image-loader-1.9.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\universal-image-loader-1.9.5_8598c214e62a76742581176ba3f887d06a583354\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="0f254ec13d6671680482d2218f01ecf14dfa93e6">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.0.0_296056d3be5ea907859aed6c783921036d4792bf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="185c30850bfc002bd18efdc3fd9378ead08b98a1">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_0a5e4f1d21e77ee8e01fae71686a601afcef1d6f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\libs\bolts-android-1.1.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\2\bolts-android-1.1.2_c6ef36a60aae494b8012bf936d6a57076969428f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-multidex-1.0.1_ecfc25ce08a34186e2cd13ba3f171c09b415f05d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="e9b1dffef88cc53834a301ba5fc19d13b1042830">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_264c4ecf081a1270e8b359321973ecba4d27555c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\libs\Parse-1.5.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="3d645417e7780d44f32e29a3ec6b729b75aef26c">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\2\Parse-1.5.1_4d8acd261a9e4f530d54095f78ae4dfc71707e8a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.1.1_f5e560dc9940c15e9cf9d120e869a94f71138d52\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.1.1_78b8f697b8d93cf014bef8aa9d0c3977cc60a806\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.1.1_1278dde317dc037f39f924d992110ecfb740095c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\libs\twitter4j-core-4.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="381cf31e9200c2902782f17248d2af18e2ab4c56">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\2\twitter4j-core-4.0.2_4b77108f3568e786ec0304edd07fff8d8f8b615d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.1.1_d3bfb55fd5b37f4c2949790e5f91b50c40ac268f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.1_6ededcc9b39f46fbcdd6efbd1a4d51bb6afd2a15\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.1_45105d3e6775585f7db44bf212b54ea2814f8565\classes.dex" />
+    </item>
+
+</items>

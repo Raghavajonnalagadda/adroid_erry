@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:weightSum="1"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.32"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/emotional_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/background__emotional"
+                android:scaleType="fitXY"
+                android:layout_marginBottom="32dp"
+                />
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/emotions_icon1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.59">
+        <FrameLayout
+            android:id="@+id/container_emotional"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+        </FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.09"
+        android:background="@color/character_light"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/ivemotions"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/emotional_1"
+            android:layout_weight="1"
+            android:background="@color/Emotional_dark"
+            android:padding="8dp"
+
+            />
+
+
+        <ImageView
+            android:id="@+id/ivresorces"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/emotional_2"
+            android:layout_weight="1"
+            android:background="@color/Emotional_light"
+            android:padding="8dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/ivappointments"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/appointments"
+            android:layout_weight="1"
+            android:background="@color/Emotional_light"
+            android:padding="8dp"
+            />
+
+        <ImageView
+            android:id="@+id/ivgeneral_info"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/gen_info"
+            android:layout_weight="1"
+            android:background="@color/Emotional_light"
+            android:padding="8dp"
+            />
+
+
+
+    </LinearLayout>
+</LinearLayout>

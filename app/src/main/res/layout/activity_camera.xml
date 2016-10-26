@@ -1,0 +1,59 @@
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:baselineAligned="true"
+        android:orientation="vertical"
+        tools:context="com.populace.mayorday.GTCCameraActivity"
+    tools:ignore="MergeRootFrame" >
+ <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="5"
+                android:orientation="vertical" >
+                 <FrameLayout
+            android:id="@+id/camera_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            
+             >
+
+           
+
+        </FrameLayout>
+     
+            </LinearLayout>
+       
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/theme_color_app"
+            android:padding="10dp"
+            >
+
+            <ImageButton
+                android:id="@+id/btnCapture"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                
+                android:src="@drawable/take" />
+
+            <ImageButton
+                android:id="@+id/btnToggle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/selfie" />
+
+        </RelativeLayout>
+
+    </LinearLayout>

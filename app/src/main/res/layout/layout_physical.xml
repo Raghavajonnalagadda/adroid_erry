@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:weightSum="1"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.32"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/physical_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/background__physical"
+                android:scaleType="fitXY"
+                android:layout_marginBottom="32dp"
+                />
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/physical_icon1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.59">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/container_physical">
+        </FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.09"
+        android:background="@color/character_light"
+
+        >
+
+        <ImageView
+            android:id="@+id/ivthe_cage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/physical_2"
+            android:layout_weight="1"
+            android:background="@color/Physical_Dark"
+            android:padding="7dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/ivdaily_workout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/physical_1"
+            android:layout_weight="1"
+            android:background="@color/Physical_light"
+            android:padding="8dp"
+
+            />
+
+        <ImageView
+            android:id="@+id/ivactivities"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/physical_3"
+            android:layout_weight="1"
+            android:background="@color/Physical_light"
+            android:padding="7dp"
+            />
+
+
+
+        <ImageView
+            android:id="@+id/ivintramural"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/physical_4"
+            android:layout_weight="1"
+            android:background="@color/Physical_light"
+            android:padding="7dp"
+            />
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:weightSum="1"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.32"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/social_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/background__social"
+                android:scaleType="fitXY"
+                android:layout_marginBottom="32dp"
+                />
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/social_icon1"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.59">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/container_social">
+        </FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.09"
+        android:background="@color/character_light"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/kcab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/social_1"
+            android:layout_weight="0.9"
+            android:background="@color/Social_Dark"
+            android:padding="8dp"
+
+            />
+
+
+        <ImageView
+            android:id="@+id/stdActivities"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/social_2"
+            android:layout_weight="1.5"
+            android:background="@color/Social_light"
+            android:padding="7dp"
+            />
+
+
+
+        <ImageView
+            android:id="@+id/sports"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/social_3"
+            android:layout_weight="0.9"
+            android:background="@color/Social_light"
+            android:padding="7dp"
+            />
+
+
+
+        <ImageView
+            android:id="@+id/sga"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/social_4"
+            android:layout_weight="0.9"
+            android:background="@color/Social_light"
+            android:padding="7dp"
+            />
+        <ImageView
+            android:id="@+id/rollCalls"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/social_5"
+            android:layout_weight="0.9"
+            android:background="@color/Social_light"
+            android:padding="7dp"
+            />
+
+    </LinearLayout>
+</LinearLayout>
