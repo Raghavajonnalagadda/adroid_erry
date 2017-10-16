@@ -9,34 +9,53 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
+        android:layout_weight="0.4"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:padding="1dp">
+
+        <Button
             android:id="@+id/btnRaces"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btntab_challenges1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
             android:layout_weight="1"
-            />
-        <ImageView
+            android:background="@drawable/buttonstages"
+            android:text="Races"
+            android:textAllCaps="false"
+            android:textColor="@drawable/textcolorstates" />
+
+        <Button
             android:id="@+id/btnRiverRental"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btntab_community0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
             android:layout_weight="1"
-            />
-        <ImageView
+            android:background="@drawable/buttonstages"
+            android:text="River Rentals"
+            android:textAllCaps="false"
+            android:textColor="@drawable/textcolorstates" />
+
+        <Button
             android:id="@+id/btnHiking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btntab_community0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
             android:layout_weight="1"
-            />
+            android:background="@drawable/buttonstages"
+            android:text="Recreation"
+            android:textAllCaps="false"
+            android:textColor="@drawable/textcolorstates" />
+
+
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/container_fragment_offCampus"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/container_fragment_offCampus">
+        android:layout_weight="0.6">
+
     </FrameLayout>
 
 </LinearLayout>

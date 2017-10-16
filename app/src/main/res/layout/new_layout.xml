@@ -47,9 +47,9 @@
                         android:id="@+id/nutrition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nutrition"
                         android:layout_gravity="center"
-                        android:src="@drawable/nutrition_icon"/>
+                        android:src="@drawable/nutrition_icon"
+                        android:text="Nutrition" />
                 </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -59,9 +59,9 @@
                         android:id="@+id/Physical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emotional"
                         android:layout_gravity="center"
-                        android:src="@drawable/physical_icon"/>
+                        android:src="@drawable/physical_icon"
+                        android:text="Emotional" />
                     </LinearLayout>
                  </LinearLayout>
 
@@ -95,17 +95,17 @@
                         android:id="@+id/acadmic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emotional"
                         android:layout_gravity="center"
-                        android:src="@drawable/academic_icon"/>
+                        android:src="@drawable/academic_icon"
+                        android:text="Emotional" />
                 </LinearLayout>
          </LinearLayout>
 
             <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="148dp"
-            android:orientation="horizontal"
             android:layout_marginTop="2dp"
+                android:orientation="horizontal"
             android:weightSum="1"
             >
             <LinearLayout
@@ -118,9 +118,9 @@
                     android:id="@+id/Sprituality"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sprituality"
                     android:layout_gravity="center"
-                    android:src="@drawable/spirituality_icon"/>
+                    android:src="@drawable/spiritualnew_icon"
+                    android:text="Sprituality" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
@@ -130,9 +130,9 @@
                     android:id="@+id/characters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Emotional"
                     android:layout_gravity="center"
-                    android:src="@drawable/character_icon"/>
+                    android:src="@drawable/character_icon"
+                    android:text="Emotional" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -144,9 +144,9 @@
                 android:id="@+id/Social"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
+                android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/social_icon1"
-                android:layout_gravity="center"/>
+                android:src="@drawable/social_icon1" />
 
         </LinearLayout>
     </LinearLayout>

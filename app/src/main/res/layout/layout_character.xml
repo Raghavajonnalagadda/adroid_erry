@@ -2,11 +2,11 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:weightSum="1"
+    android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
+    android:weightSum="1"
     >
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,15 +21,15 @@
             android:id="@+id/character_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/background__character"
+            android:layout_marginBottom="32dp"
             android:scaleType="fitXY"
-            android:layout_marginBottom="32dp"/>
+            android:src="@drawable/background__character" />
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/character_icon1"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:src="@drawable/character_icon1"
                 />
       </RelativeLayout>
     </LinearLayout>
@@ -54,54 +54,114 @@
             >
 
 
-
-
-                />
-            <ImageView
+            <LinearLayout
                 android:id="@+id/definition"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/character_1"
                 android:layout_weight="1"
                 android:background="@color/character_dark"
-                android:padding="7dp"
-                />
+                android:orientation="vertical"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp">
 
+                <ImageView
 
-            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/character_1image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Definition"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/bcvs"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/character_2"
                 android:layout_weight="1"
                 android:background="@color/character_light"
-                android:padding="7dp"
-                />
+                android:orientation="vertical"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp">
+
+                <ImageView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/character_2image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="BCVS"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
 
 
-
-            <ImageView
+            <LinearLayout
                 android:id="@+id/quote"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/character_3"
                 android:layout_weight="1"
                 android:background="@color/character_light"
-                android:padding="7dp"
-             
-                />
+                android:orientation="vertical"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp">
 
-            <ImageView
+                <ImageView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/character_3image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Quote"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/handbook"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/handbook"
                 android:layout_weight="1"
                 android:background="@color/character_light"
-                android:padding="7dp"
+                android:orientation="vertical"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp">
 
-                />
+                <ImageView
 
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/character_4image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Handbook"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

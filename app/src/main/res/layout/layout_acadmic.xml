@@ -2,11 +2,11 @@
 
 <LinearLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_height="match_parent"
 android:layout_width="match_parent"
-android:weightSum="1"
+    android:layout_height="match_parent"
 android:background="@drawable/bg"
 android:orientation="vertical"
+    android:weightSum="1"
     >
 <LinearLayout
     android:layout_width="match_parent"
@@ -21,17 +21,17 @@ android:orientation="vertical"
         android:id="@+id/acadmic_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background__academic"
-        android:scaleType="fitXY"
         android:layout_marginBottom="32dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/background__academic"
         />
 
         <ImageView
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/academic_icon1"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:src="@drawable/academic_icon1"
            />
     </RelativeLayout>
 </LinearLayout>
@@ -40,9 +40,9 @@ android:orientation="vertical"
     android:layout_height="0dp"
     android:layout_weight="0.58">
    <FrameLayout
+       android:id="@+id/container"
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/container">
+       android:layout_height="match_parent">
    </FrameLayout>
 </LinearLayout>
     <LinearLayout
@@ -53,52 +53,118 @@ android:orientation="vertical"
 
         >
 
+        <LinearLayout
+            android:id="@+id/ivcalendar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/acadmic_dark"
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
 
             <ImageView
-                android:id="@+id/ivcalander"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/academic_1"
-                android:layout_weight="1"
-                android:background="@color/acadmic_dark"
-                android:padding="4dp"
 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/academic_1image"
                 />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Events Calendar"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ivclubs"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/acadmic_light"
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
 
             <ImageView
-                android:id="@+id/ivclubs"
-                android:layout_width="0dp"
+
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/academic_2"
                 android:layout_weight="1"
-                android:background="@color/acadmic_light"
-                android:padding="5dp"
+                android:src="@drawable/academic_2image"
                 />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Clubs"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ivlibrary"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/acadmic_light"
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
 
             <ImageView
-                android:id="@+id/ivlibrary"
-                android:layout_width="0dp"
+
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/academic_3"
                 android:layout_weight="1"
-                android:background="@color/acadmic_light"
-                android:padding="5dp"
-               />
+                android:src="@drawable/academic_3image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Library"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
 
 
+        <LinearLayout
+            android:id="@+id/ivasc"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/acadmic_light"
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
 
             <ImageView
-                android:id="@+id/ivtutoring"
-                android:layout_width="0dp"
+
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/academic_4"
                 android:layout_weight="1"
-                android:background="@color/acadmic_light"
-                android:padding="5dp"
+                android:src="@drawable/academic_4image"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="ASC"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
         </LinearLayout>

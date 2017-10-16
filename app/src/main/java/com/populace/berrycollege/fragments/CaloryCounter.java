@@ -36,7 +36,7 @@ public class CaloryCounter extends Fragment {
             bs = new BerrySession(this.getActivity());
             SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
             String calory_count = bs.getString(ParseDataManager.TAG_NUTRITION_CAL_COUNT);
-            cal_count.loadUrl(calory_count);
+            cal_count.loadUrl("http://www.berry.edu/berryrecreation/nutrition/");
         }
         else
         {

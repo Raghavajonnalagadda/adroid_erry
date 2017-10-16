@@ -1,12 +1,14 @@
 package com.populace.berrycollege.activities;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -21,12 +23,13 @@ import com.populace.berrycollege.R;
 import com.populace.berrycollege.fragments.AppointmentsFragment;
 import com.populace.berrycollege.fragments.Emotions_Fragment;
 import com.populace.berrycollege.fragments.GeneralInfoFragment;
-import com.populace.berrycollege.fragments.ResourcesFragment;
+import com.populace.berrycollege.fragments.Resourcesdetails;
 import com.populace.berrycollege.managers.ParseDataManager;
 
 
 public class Emotional_Activity extends AppCompatActivity implements OnClickListener{
     private ImageView emotions, resources,appointments,generalInfo,imotionalBanner;
+    private LinearLayout _emotions, _resources, _appointments, _generalInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +40,13 @@ public class Emotional_Activity extends AppCompatActivity implements OnClickList
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(Emotional_Activity.this));
         ImageLoader imageLoader = ImageLoader.getInstance();
         InitializeListeners();
-        getFragmentManager().beginTransaction().add(R.id.container_emotional,new Emotions_Fragment(),null).commit();
+        getFragmentManager().beginTransaction().add(R.id.container_emotional, new Resourcesdetails(), null).commit();
         ParseObject obj= ParseDataManager.sharedDataManager(this).images.get(4);
         System.out.println("Image for banner:"+obj);
         ParseFile fl = (ParseFile) obj.get("section_image");
         String imageUri = fl.getUrl();
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Emotional_light)));
 
 
 
@@ -90,19 +95,19 @@ public class Emotional_Activity extends AppCompatActivity implements OnClickList
     }
 
     private void findViewByIds() {
-        emotions = (ImageView) findViewById(R.id.ivemotions);
-        resources = (ImageView) findViewById(R.id.ivresorces);
-        appointments = (ImageView) findViewById(R.id.ivappointments);
-        generalInfo = (ImageView) findViewById(R.id.ivgeneral_info);
+        _emotions = (LinearLayout) findViewById(R.id.ivemotions);
+        _resources = (LinearLayout) findViewById(R.id.ivresorces);
+        _appointments = (LinearLayout) findViewById(R.id.ivappointments);
+        _generalInfo = (LinearLayout) findViewById(R.id.ivgeneral_info);
         imotionalBanner = (ImageView) findViewById(R.id.emotional_image);
-
+        _resources.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
     }
 
     private void InitializeListeners() {
-        emotions.setOnClickListener(this);
-        resources.setOnClickListener(this);
-        appointments.setOnClickListener(this);
-        generalInfo.setOnClickListener(this);
+        _emotions.setOnClickListener(this);
+        _resources.setOnClickListener(this);
+        _appointments.setOnClickListener(this);
+        _generalInfo.setOnClickListener(this);
 
     }
 
@@ -110,34 +115,34 @@ public class Emotional_Activity extends AppCompatActivity implements OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivemotions:
-                emotions.setBackgroundColor(getResources().getColor(R.color.Emotional_dark));
-                resources.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                appointments.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                generalInfo.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _emotions.setBackgroundColor(getResources().getColor(R.color.Emotional_dark));
+                _resources.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _appointments.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _generalInfo.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_emotional,new Emotions_Fragment(),null).commit();
                 break;
 
             case R.id.ivresorces:
-                emotions.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                resources.setBackgroundColor(getResources().getColor(R.color.Emotional_dark));
-                appointments.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                generalInfo.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                getFragmentManager().beginTransaction().replace(R.id.container_emotional,new ResourcesFragment(),null).commit();
+                _emotions.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _resources.setBackgroundColor(getResources().getColor(R.color.Emotional_dark));
+                _appointments.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _generalInfo.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                getFragmentManager().beginTransaction().replace(R.id.container_emotional, new Resourcesdetails(), null).commit();
                 break;
 
             case R.id.ivappointments:
-                emotions.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                resources.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                appointments.setBackgroundColor(getResources().getColor(R.color.Emotional_dark));
-                generalInfo.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _emotions.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _resources.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _appointments.setBackgroundColor(getResources().getColor(R.color.Emotional_dark));
+                _generalInfo.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_emotional,new AppointmentsFragment(),null).commit();
                 break;
 
             case R.id.ivgeneral_info:
-                emotions.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                resources.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                appointments.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
-                generalInfo.setBackgroundColor(getResources().getColor(R.color.Emotional_dark));
+                _emotions.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _resources.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _appointments.setBackgroundColor(getResources().getColor(R.color.Emotional_light));
+                _generalInfo.setBackgroundColor(getResources().getColor(R.color.Emotional_dark));
                 getFragmentManager().beginTransaction().replace(R.id.container_emotional,new GeneralInfoFragment(),null).commit();
                 break;
 

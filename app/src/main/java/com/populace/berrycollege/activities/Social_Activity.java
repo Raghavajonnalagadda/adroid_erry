@@ -3,12 +3,14 @@ package com.populace.berrycollege.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -25,7 +27,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.populace.berrycollege.R;
 import com.populace.berrycollege.fragments.KcabFragment;
-import com.populace.berrycollege.fragments.RollCallsFragment;
 import com.populace.berrycollege.fragments.SgaFragment;
 import com.populace.berrycollege.fragments.SportsFragment;
 import com.populace.berrycollege.fragments.StdActivityFragment;
@@ -40,8 +41,10 @@ import java.util.List;
  * Created by Nikhil on 2/2/2016.
  */
 public class Social_Activity extends AppCompatActivity implements OnClickListener{
-    private ImageView kcab,stdActivities, sports,sga,rollCalls,social;
 Activity ac;
+    private ImageView kcab, stdActivities, sports, sga, rollCalls, social;
+    private LinearLayout _kcab, _stdActivities, _sports, _sga, _rollCalls;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,8 @@ Activity ac;
         System.out.println("Image for banner:"+obj);
         ParseFile fl = (ParseFile) obj.get("section_image");
         String imageUri = fl.getUrl();
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Social_light)));
 
 
 
@@ -106,68 +111,68 @@ Activity ac;
     }
 
     private void findViewByIds() {
-        kcab = (ImageView) findViewById(R.id.kcab);
-        stdActivities = (ImageView) findViewById(R.id.stdActivities);
-        sports = (ImageView) findViewById(R.id.sports);
-        sga = (ImageView) findViewById(R.id.sga);
-        rollCalls = (ImageView) findViewById(R.id.rollCalls);
+        _kcab = (LinearLayout) findViewById(R.id.kcab);
+        _stdActivities = (LinearLayout) findViewById(R.id.stdActivities);
+        _sports = (LinearLayout) findViewById(R.id.sports);
+        _sga = (LinearLayout) findViewById(R.id.sga);
+        _rollCalls = (LinearLayout) findViewById(R.id.rollCalls);
         social = (ImageView) findViewById(R.id.social_image);
 
     }
 
     private void InitializeListeners() {
-        kcab.setOnClickListener(this);
-        stdActivities.setOnClickListener(this);
-        sports.setOnClickListener(this);
-        sga.setOnClickListener(this);
-        rollCalls.setOnClickListener(this);
+        _kcab.setOnClickListener(this);
+        _stdActivities.setOnClickListener(this);
+        _sports.setOnClickListener(this);
+        _sga.setOnClickListener(this);
+        _rollCalls.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.kcab:
-                kcab.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
-                stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                sports.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                sga.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _kcab.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
+                _stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _sports.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _sga.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_social,new KcabFragment(),null).commit();
                 break;
 
             case R.id.stdActivities:
-                kcab.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
-                sports.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                sga.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _kcab.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
+                _sports.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _sga.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_social,new StdActivityFragment(),null).commit();
                 break;
 
             case R.id.sports:
-                kcab.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                sports.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
-                sga.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _kcab.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _sports.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
+                _sga.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_social,new SportsFragment(),null).commit();
                 break;
 
             case R.id.sga:
-                kcab.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                sports.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                sga.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
-                rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _kcab.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _sports.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _sga.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
+                _rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_social,new SgaFragment(),null).commit();
                 break;
 
             case R.id.rollCalls:
-                kcab.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                sports.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                sga.setBackgroundColor(getResources().getColor(R.color.Social_light));
-                rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
+                _kcab.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _stdActivities.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _sports.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _sga.setBackgroundColor(getResources().getColor(R.color.Social_light));
+                _rollCalls.setBackgroundColor(getResources().getColor(R.color.Social_Dark));
                 //getFragmentManager().beginTransaction().replace(R.id.container_social,new RollCallsFragment(),null).commit();
                 downloadUsersData();
                 break;

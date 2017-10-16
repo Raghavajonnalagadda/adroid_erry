@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ImageView;
+import android.widget.Button;
 
 import com.populace.berrycollege.R;
 import com.populace.berrycollege.managers.BerrySession;
@@ -17,13 +17,15 @@ public class Activities_Fragment extends Fragment implements OnClickListener {
     WebView activities;
     BerrySession bs;
 
-    ImageView onCampus, offCampus;
+    Button onCampus, offCampus;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container1,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_activities_, container1, false);
-        onCampus = (ImageView) v.findViewById(R.id.btnOnCampus);
-        offCampus = (ImageView) v.findViewById(R.id.btnOffCampus);
+        onCampus = (Button) v.findViewById(R.id.btnOnCampus);
+        offCampus = (Button) v.findViewById(R.id.btnOffCampus);
+        onCampus.setSelected(true);
+        offCampus.setSelected(false);
         getFragmentManager().beginTransaction().add(R.id.container_fragment_activities,new OnCampusFragment(),null).commit();
 
         InitializeListeners();
@@ -43,15 +45,20 @@ public class Activities_Fragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnOnCampus:
-
-                onCampus.setImageResource(R.drawable.btntab_community1);
-                offCampus.setImageResource(R.drawable.btntab_challenges0);
+                onCampus.setPressed(true);
+                onCampus.setSelected(true);
+                offCampus.setSelected(false);
+                // onCampus.setBuResource(R.drawable.physical_on_campus1);
+                //offCampus.setImageResource(R.drawable.physical_off_campus1);
                 getFragmentManager().beginTransaction().replace(R.id.container_fragment_activities, new OnCampusFragment(), null).commit();
                 break;
 
             case R.id.btnOffCampus:
-                onCampus.setImageResource(R.drawable.btntab_community0);
-                offCampus.setImageResource(R.drawable.btntab_challenges1);
+
+                onCampus.setSelected(false);
+                offCampus.setSelected(true);
+                //onCampus.setImageResource(R.drawable.physical_on_campus1);
+                //offCampus.setImageResource(R.drawable.physical_off_campus1);
                 getFragmentManager().beginTransaction().replace(R.id.container_fragment_activities, new OffCampusFragment(), null).commit();
                 break;
         }

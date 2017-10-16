@@ -45,7 +45,24 @@ public class LoginScreen extends AppCompatActivity {
 	ImageView back_button;
 	String fname,lname;
 
-	@TargetApi(VERSION_CODES.JELLY_BEAN_MR2)
+    public static String trimNameForImage(String name) {
+
+        int pos = -1;
+        char arr[] = name.toCharArray();
+
+        for (int i = 0; i < arr.length; i++) {
+
+            if (Character.isLetter(arr[i]) || Character.isDigit(arr[i])) {
+                break;
+            } else {
+                pos = i;
+            }
+        }
+        String newname = name.substring(pos + 1);
+        return newname;
+    }
+
+    @TargetApi(VERSION_CODES.JELLY_BEAN_MR2)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,7 +94,7 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 		cancel_button.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -85,13 +102,13 @@ public class LoginScreen extends AppCompatActivity {
 			}
 		});
 		login_button.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				String email=email_txt.getText().toString().trim();
 				String password=password_txt.getText().toString();
-				
+
 				if(email.length()==0)
 				{
 					showAlertSimple("Sorry, invalid login credentials");
@@ -106,20 +123,19 @@ public class LoginScreen extends AppCompatActivity {
 				}
 				else if(!CheckIsConnectedToInternet(ac))
 				{
-					showAlertSimple(GlobalClass.internet_message);	
-				}
+                    showAlertSimple(GlobalClass.internet_message);
+                }
 				else
 				{
 					loginUser(email, password);
 				}
-		
+
 			}
 		});
-		
+
 	}
-	
-	public boolean emailValidator(String email) 
-	{
+
+    public boolean emailValidator(String email) {
 	    Pattern pattern;
 	    Matcher matcher;
 	    final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -127,17 +143,18 @@ public class LoginScreen extends AppCompatActivity {
 	    matcher = pattern.matcher(email);
 	    return matcher.matches();
 	}
+
 	public void showAlertSimple(final String  message)
 	{
-		
-		
-		AlertDialog.Builder builder1 = new AlertDialog.Builder(ac);
+
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(ac);
         builder1.setMessage(""+message+"");
         builder1.setCancelable(true);
         builder1.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-            	
+
                 dialog.cancel();
             }
         });
@@ -145,14 +162,15 @@ public class LoginScreen extends AppCompatActivity {
         AlertDialog alert11 = builder1.create();
         alert11.show();
 	}
-	public void loginUser(final String email,final String password)
+
+    public void loginUser(final String email,final String password)
 	{
 		   final ProgressDialog dialog = ParseDataManager.showProgress(LoginScreen.this, "Authentication", "Logging in...");
 		ParseDataManager.sharedDataManager(LoginScreen.this).login(email,password, new ILoginCallback(){
 
 						@Override
 						public void onLogin(final boolean success, final ParseException e, ParseUser user) {
-							
+
 							if(LoginScreen.this != null){
 //								Crashlytics.log(Log.INFO, "STS", "Will try dismissing and presenting new activity...");
 								LoginScreen.this.runOnUiThread(new Runnable(){
@@ -166,6 +184,7 @@ public class LoginScreen extends AppCompatActivity {
 										System.gc();
 										Intent myIntent = new Intent(LoginScreen.this, MainActivity.class);
 						              	startActivityForResult(myIntent, 0);
+
 						              	finish();
 									}else{
 
@@ -175,42 +194,44 @@ public class LoginScreen extends AppCompatActivity {
 								}
 
 							});
-							
-							}else{
+
+                            }else{
 //								Crashlytics.log(Log.INFO, "STS", "Activity is null...");
-								
-								dialog.dismiss();
+
+                                dialog.dismiss();
 							}
 						}
-						
-					});
-		 
-	}
-	
-	@Override
+
+        });
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-	 
-	 @Override
+
+    @Override
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		super.onRestart();
 
 	 }
-	 public void showToastMessage(String message)
+
+    public void showToastMessage(String message)
 	    {
-	    	Toast.makeText(ac,message, 
-	                Toast.LENGTH_SHORT).show();
-	    	
-	    }
-	 public void noInternet()
+            Toast.makeText(ac, message,
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+    public void noInternet()
 	    {
-	    	Toast.makeText(ac,GlobalClass.internet_message, 
-	                Toast.LENGTH_SHORT).show();
+            Toast.makeText(ac, GlobalClass.internet_message,
+                    Toast.LENGTH_SHORT).show();
 	    }
-	   
-	    public boolean CheckIsConnectedToInternet(Context _context) {
+
+    public boolean CheckIsConnectedToInternet(Context _context) {
 			   ConnectivityManager connectivity = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
 			   if (connectivity != null) {
 			     NetworkInfo[] info = connectivity.getAllNetworkInfo();
@@ -228,60 +249,44 @@ public class LoginScreen extends AppCompatActivity {
 	    {
 	    	if(file_this!=null)
 	    	{
-	    		ParseFile file = (ParseFile) file_this;
-	    		
+                ParseFile file = file_this;
+
 	    		try {
 	    			if(file.getName() != null){
 	    				String[] filenameTokens = file.getName().split("-");
 	    				System.out.println("Andy files check this "+image_name);
-	    			
-	    				String fullPath = "/data/data/" + ac.getPackageName() + "/files/"+image_name;
-	    			
-	    				File file_check = new File(fullPath);
-	    				
-//	    				if(file_check.exists())      
+
+                        String fullPath = "/data/data/" + ac.getPackageName() + "/files/"+image_name;
+
+                        File file_check = new File(fullPath);
+
+//	    				if(file_check.exists())
 //	    				{
-//	    					System.out.println("Andy data parse true");	
+//	    					System.out.println("Andy data parse true");
 //	    				}
 //	    				else
 //	    				{
-	    					System.out.println("Andy data parse false");	
-	    					byte[] data = file.getData();
+                        System.out.println("Andy data parse false");
+                        byte[] data = file.getData();
 	    					FileOutputStream stream = ac.openFileOutput(image_name,Context.MODE_PRIVATE);
 	    					stream.write(data);
 	    					stream.close();
-	    						
+
 //	    				}
-	    			
-	    			}	} catch (ParseException e1) {
-	    				
-	    				e1.printStackTrace();
+
+                    }	} catch (ParseException e1) {
+
+                    e1.printStackTrace();
 	    			} catch (FileNotFoundException e) {
-	    				
-	    				e.printStackTrace();
+
+                    e.printStackTrace();
 	    			} catch (IOException e) {
-	    				
-	    				e.printStackTrace();
-	    			}	
-	    	}
+
+                    e.printStackTrace();
+                }
+            }
 
 	    }
-	    public static String trimNameForImage(String name) {
-
-	    	int pos = -1;
-	    	char arr[] = name.toCharArray();
-
-	    	for (int i = 0; i < arr.length; i++) {
-
-	    		if (Character.isLetter(arr[i])||Character.isDigit(arr[i])) {
-	    			break;
-	    		} else {
-	    			pos = i;
-	    		}
-	    	}
-	    	String newname = name.substring(pos + 1);
-	    	return newname;
-	    } 
 	   
 		@Override
 		public boolean onOptionsItemSelected(MenuItem item) {

@@ -40,7 +40,8 @@ public class HandbookFragment extends Fragment {
         handbook = (WebView)v.findViewById(R.id.web_handbook);
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         //String resource = bs.getString(ParseDataManager.TAG__EMOTION_APPOINTMENTS);
-        handbook.loadUrl("http://www.berry.edu/service/");
+            String filePath = "http://www.berry.edu/uploadedFiles/Website/Student_Affairs/_Assets/Documents/VikingCodeHandbook.pdf";
+            handbook.loadUrl("https://docs.google.com/gview?embedded=true&url=" + filePath);
         }
         else
         {

@@ -29,6 +29,7 @@ public class ReligiousEvent extends Fragment {
         pd.setMessage("Loading Page...");
         pd.show();
         pd.setCancelable(false);
+            religious_event.getSettings().setJavaScriptEnabled(true);
         religious_event.setWebViewClient(new MyWebViewClient());
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);

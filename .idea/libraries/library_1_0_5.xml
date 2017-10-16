@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="library-1.0.5">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/77d349b11ff71f19517333797aa912f6271e2f82/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/77d349b11ff71f19517333797aa912f6271e2f82/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.veinhorn.scrollgalleryview/library/1.0.5/5c2cd0f0f4be136e0d682509f0b00264b687036f/library-1.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

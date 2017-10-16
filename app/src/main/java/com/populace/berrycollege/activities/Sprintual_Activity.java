@@ -1,12 +1,14 @@
 package com.populace.berrycollege.activities;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -18,7 +20,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.populace.berrycollege.R;
-import com.populace.berrycollege.fragments.CalanderFragment;
 import com.populace.berrycollege.fragments.ComplainOffices;
 import com.populace.berrycollege.fragments.GroupEvent;
 import com.populace.berrycollege.fragments.ReligiousEvent;
@@ -30,6 +31,7 @@ import com.populace.berrycollege.managers.ParseDataManager;
  */
 public class Sprintual_Activity extends AppCompatActivity implements OnClickListener{
     ImageView relegiousEvents,sprituality,groups,complainOffice,calander,spritual;
+    private LinearLayout _relegiousEvents, _spirituality, _groups, _complainOffice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,9 @@ public class Sprintual_Activity extends AppCompatActivity implements OnClickList
                 .delayBeforeLoading(1000)
                 .displayer(new RoundedBitmapDisplayer(10))
                 .build();
+
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Social_light)));
 
 // Load and display image
         imageLoader.displayImage(imageUri, spritual, options, new ImageLoadingListener() {
@@ -86,70 +91,70 @@ public class Sprintual_Activity extends AppCompatActivity implements OnClickList
     }
 
     private void findViewByIds() {
-        relegiousEvents = (ImageView) findViewById(R.id.ivreligious_events);
-        sprituality = (ImageView) findViewById(R.id.ivsprituality);
-        groups = (ImageView) findViewById(R.id.ivgroups);
-        complainOffice = (ImageView) findViewById(R.id.ivcomlain_offices);
-        calander = (ImageView) findViewById(R.id.ivCalander);
+        _relegiousEvents = (LinearLayout) findViewById(R.id.ivreligious_events);
+        _spirituality = (LinearLayout) findViewById(R.id.ivsprituality);
+        _groups = (LinearLayout) findViewById(R.id.ivgroups);
+        _complainOffice = (LinearLayout) findViewById(R.id.ivchaplain_offices);
+        //_calander = (LinearLayout) findViewById(R.id.ivCalendar);
         spritual = (ImageView) findViewById(R.id.spritual_image);
 
     }
 
     private void InitializeListeners() {
-        relegiousEvents.setOnClickListener(this);
-        sprituality.setOnClickListener(this);
-        groups.setOnClickListener(this);
-        complainOffice.setOnClickListener(this);
-        calander.setOnClickListener(this);
+        _relegiousEvents.setOnClickListener(this);
+        _spirituality.setOnClickListener(this);
+        _groups.setOnClickListener(this);
+        _complainOffice.setOnClickListener(this);
+        //   _calander.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivreligious_events:
-                relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
-                sprituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
+                _spirituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                // _calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_sprituality,new ReligiousEvent(),null).commit();
                 break;
 
             case R.id.ivsprituality:
-                relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                sprituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
-                groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _spirituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
+                _groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                //   _calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_sprituality,new Sprituality(),null).commit();
                 break;
 
             case R.id.ivgroups:
-                relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                sprituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
-                complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _spirituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
+                _complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                //  _calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_sprituality,new GroupEvent(),null).commit();
                 break;
 
-            case R.id.ivcomlain_offices:
-                relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                sprituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
-                calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+            case R.id.ivchaplain_offices:
+                _relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _spirituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+                _complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
+                //  _calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_sprituality,new ComplainOffices(),null).commit();
                 break;
 
-            case R.id.ivCalander:
-                relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                sprituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
-                calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
-                getFragmentManager().beginTransaction().replace(R.id.container_sprituality,new CalanderFragment(),null).commit();
-                break;
+            //  case R.id.ivCalendar:
+            //    _relegiousEvents.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+            //   _spirituality.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+            //   _groups.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+            //  _complainOffice.setBackgroundColor(getResources().getColor(R.color.Sprituality_light));
+            //   _calander.setBackgroundColor(getResources().getColor(R.color.Sprituality_Dark));
+            //      getFragmentManager().beginTransaction().replace(R.id.container_sprituality,new CalanderFragment(),null).commit();
+            //     break;
 
 
         }

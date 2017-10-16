@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.populace.berrycollege.R;
+import com.populace.berrycollege.RegistrationIntentService;
 import com.populace.berrycollege.managers.ParseDataManager;
 
 import java.security.MessageDigest;
@@ -32,18 +35,38 @@ import java.security.NoSuchAlgorithmException;
 
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
-    private ImageView ivnutrition, ivphysical,ivemotional,ivacadmic,ivsprituality,ivcharacter,ivsocial,ivnavicon;
+    public static Context context;
+    ImageView menuBtn;
+    private ImageView ivnutrition, ivphysical, ivemotional, ivacadmic, ivsprituality, ivcharacter, ivsocial, ivnavicon, ivhealth;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ImageView image_view;
-    public  static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ivhealth = (ImageView) findViewById(R.id.health);
         context = MainActivity.this;
+        menuBtn = (ImageView) findViewById(R.id.menubutton);
+        mDrawerLayout.setScrimColor(Color.TRANSPARENT);
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        startService(intent);
+        menuBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                    mDrawerLayout.openDrawer(Gravity.LEFT);
+
+                } else {
+                    mDrawerLayout.closeDrawer(Gravity.LEFT);
+                }
+            }
+        });
+
+
         ParseDataManager.sharedDataManager(this).checkDataVersion(true, this);
         ParseDataManager.sharedDataManager(this).downloadBannerImages();
         ParseDataManager.sharedDataManager(this).fetchBannerImages();
@@ -71,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         ActionBar bar = getSupportActionBar();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.sidetray_icon_grey);
         final ActionBar abar = getSupportActionBar();
         View viewActionBar = getLayoutInflater().inflate(R.layout.abs_layout, null);
         ActionBar.LayoutParams params = new ActionBar.LayoutParams(//Center the textview in the ActionBar !
@@ -79,12 +102,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 ActionBar.LayoutParams.MATCH_PARENT,
                 Gravity.CENTER);
         TextView textviewTitle = (TextView) viewActionBar.findViewById(R.id.ab_title);
-        textviewTitle.setText("Berry College Wellness App");
+        //textviewTitle.setText("Berry College Wellness App");
         abar.setCustomView(viewActionBar, params);
         abar.setDisplayShowCustomEnabled(true);
         abar.setDisplayShowTitleEnabled(false);
         abar.setDisplayHomeAsUpEnabled(true);
         abar.setHomeButtonEnabled(true);
+        abar.hide();
+
+
+        // getSupportActionBar().setBackgroundDrawable(new ColorDrawable( getResources().getColor( R.color.white_color )));
 
 
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -128,6 +155,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // getSupportActionBar().setBackgroundDrawable(R.drawable.backgroun);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white_color)));
+    }
+
     private void InitializeListeners()
     {
         ivsprituality.setOnClickListener(this);
@@ -137,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         ivcharacter.setOnClickListener(this);
         ivsocial.setOnClickListener(this);
         ivacadmic.setOnClickListener(this);
+        ivhealth.setOnClickListener(this);
 
 
     }
@@ -186,6 +222,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         ivnutrition = (ImageView)findViewById(R.id.nutrition);
         ivphysical = (ImageView)findViewById(R.id.Physical);
         ivsprituality = (ImageView)findViewById(R.id.Sprituality);
+        ivhealth = (ImageView) findViewById(R.id.health);
 
     }
 
@@ -236,7 +273,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
                 break;
 
+            case R.id.health:
+                Intent in7 = new Intent(MainActivity.this, HealthAndWellness.class);
+                startActivity(in7);
 
+                break;
 
         }
 

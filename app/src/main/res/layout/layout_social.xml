@@ -2,11 +2,11 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:weightSum="1"
+    android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
+    android:weightSum="1"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,17 +21,17 @@
                 android:id="@+id/social_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/background__social"
-                android:scaleType="fitXY"
                 android:layout_marginBottom="32dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/background__social"
                 />
 
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/social_icon1"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:src="@drawable/social_icon1"
                 />
         </RelativeLayout>
     </LinearLayout>
@@ -40,9 +40,9 @@
         android:layout_height="0dp"
         android:layout_weight="0.59">
         <FrameLayout
+            android:id="@+id/container_social"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/container_social">
+            android:layout_height="match_parent">
         </FrameLayout>
     </LinearLayout>
     <LinearLayout
@@ -53,61 +53,144 @@
 
         >
 
-
-        <ImageView
+        <LinearLayout
             android:id="@+id/kcab"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/social_1"
-            android:layout_weight="0.9"
+            android:layout_weight="1"
             android:background="@color/Social_Dark"
-            android:padding="8dp"
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
 
-            />
+            <ImageView
 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/social_1image" />
 
-        <ImageView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="KCAB"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/stdActivities"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/social_2"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:background="@color/Social_light"
-            android:padding="7dp"
-            />
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/social_2image"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Activities"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
 
 
-
-        <ImageView
+        <LinearLayout
             android:id="@+id/sports"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/social_3"
-            android:layout_weight="0.9"
+            android:layout_weight="1"
             android:background="@color/Social_light"
-            android:padding="7dp"
-            />
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
 
+            <ImageView
 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/social_3image" />
 
-        <ImageView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Sports"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/sga"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/social_4"
-            android:layout_weight="0.9"
+            android:layout_weight="1"
             android:background="@color/Social_light"
-            android:padding="7dp"
-            />
-        <ImageView
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/social_4image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="SGA"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:id="@+id/rollCalls"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/social_5"
-            android:layout_weight="0.9"
+            android:layout_weight="1"
             android:background="@color/Social_light"
-            android:padding="7dp"
-            />
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/social_5image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Rocalls"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

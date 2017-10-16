@@ -2,7 +2,6 @@ package com.populace.berrycollege.fragments;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,16 +24,18 @@ public class HikingFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_hiking, container, false);
         if (ParseDataManager.sharedDataManager(getActivity()).CheckIsConnectedToInternet(getActivity())) {
         hiking = (WebView)v.findViewById(R.id.web_onhiking);
+            hiking.loadUrl("http://www.rfpra.com");
         pd = new ProgressDialog(this.getActivity());
         pd.setMessage("Loading Page...");
         pd.setCancelable(false);
         pd.show();
         pd.setCancelable(false);
         hiking.setWebViewClient(new MyWebViewClient());
+            hiking.getSettings().setJavaScriptEnabled(true);
         bs=new BerrySession(this.getActivity());
-        SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
-        String intramurals = bs.getString(ParseDataManager.TAG__PHYSICAL_INTRAMURAL_OFF_HIKING);
-        hiking.loadUrl(intramurals);
+            //SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
+            //String intramurals = bs.getString(ParseDataManager.TAG__PHYSICAL_INTRAMURAL_OFF_HIKING);
+            //hiking.loadUrl(intramurals);
     }
     else
     {

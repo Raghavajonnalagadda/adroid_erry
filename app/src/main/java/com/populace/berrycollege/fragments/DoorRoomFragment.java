@@ -34,7 +34,8 @@ public class DoorRoomFragment extends Fragment {
         doorRoom.getSettings().setJavaScriptEnabled(true);
         doorRoom.getSettings().setPluginState(WebSettings.PluginState.ON);
         doorRoom.setWebViewClient(new MyWebViewClient());
-        doorRoom.loadUrl("http://greatist.com/fitness/bodyweight-exercises");
+            // doorRoom.loadUrl("http://greatist.com/fitness/bodyweight-exercises");
+            doorRoom.loadUrl("file:///android_asset/img.html");
         }
         else
         {

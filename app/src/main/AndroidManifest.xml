@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.populace.berrycollege"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.populace.berrycollege">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -10,6 +10,8 @@
         android:glEsVersion="0x00020000"
         android:required="true"/>
 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -53,11 +55,41 @@
     <application
         android:name=".activities.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/icon_50"
+        android:icon="@drawable/berry_tree_app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.populace.berrycollege" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.populace.berrycollege.MyGcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.populace.berrycollege.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.populace.berrycollege.RegistrationIntentService"
+            android:exported="false"></service>
+
+        <activity android:name=".activities.WebViewActivity"></activity>
         <activity
             android:name=".activities.splash"
             android:configChanges="orientation"
@@ -89,38 +121,38 @@
         <activity
             android:name=".activities.Acadmic_Activity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:label="Acadmic">
+            android:label="Acadmic"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.Emotional_Activity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:label="Emotions">
+            android:label="Emotions"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.Nutrition_Activity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:label="Nutrition">
+            android:label="Nutrition"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.Physical_Activity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:label="Physical">
+            android:label="Physical"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.Social_Activity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:label="Social">
+            android:label="Social"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.Sprintual_Activity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:label="Spritual">
+            android:label="Spritual"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.GTCCameraActivity"

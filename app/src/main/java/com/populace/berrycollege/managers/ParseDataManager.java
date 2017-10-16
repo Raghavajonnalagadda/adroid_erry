@@ -33,14 +33,12 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
-import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.PushService;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.populace.berrycollege.R;
@@ -71,11 +69,9 @@ import java.util.regex.Pattern;
 import soundcloud.android.crop.Crop;
 
 public class ParseDataManager implements DownloadCompleteCallback {
-    private static ParseDataManager sharedDataManager = null;
-    MainActivity ac;
-    public Context context;
-    public ParseInstallation installation;
-    ProgressDialog berryProgress;
+    public final static int PIC_CROP = 2;
+    public final static int TAKE_PICTURE = 1;
+    private static final int REQ_CODE_PICK_IMAGE = 100;
     public static boolean showsDownloadActivity = true;
     public static String TAG_CHAR_DEFINITION = "definition";
     public static String TAG_CHAR_BCV = "bcv";
@@ -101,9 +97,10 @@ public class ParseDataManager implements DownloadCompleteCallback {
     public static String TAG_EMOTION_DEFINITION = "definition";
     public static String TAG_EMOTION_ON_CAMPUS_RESOURCES = "on_campus_resources";
     public static String TAG_EMOTION_OFF_CAMPUS_RESOURCES = "off_campus_resources";
+    public static String TAG_EMOTION_PEER_RESOURCES = "peer_educators";
     public static String TAG__EMOTION_APPOINTMENTS = "http://www.berry.edu/stulife/counseling/appointments/";
     public static String TAG__EMOTION_GENERAL_INFO = "https://www.berry.edu/stulife/counseling/";
-    public static String TAG_SPIR_RELIGIOUS_EVENTS = "religious_events";
+    public static String TAG_SPIR_RELIGIOUS_EVENTS = "religion";
     public static String TAG_SPIR_SPIRTUALITY = "spirtuality";
     public static String TAG_SPIR_CALANDER = "http://ems.berry.edu/MasterCalendar/MasterCalendar.aspx?data=Ai6R2a1%2f4RXbqjkg%2fwalYtxW1e0PEIGrbZmKzGAU8QCzO0%2b9CsQycR2FvrkVvqJahJxmfkqNLRE%3d";
     public static String TAG_SPIR_GROUPS = "groups";
@@ -117,19 +114,15 @@ public class ParseDataManager implements DownloadCompleteCallback {
     public static String TAG_LINK_YOU_TUBE = "youtube";
     public static String TAG_LINK_PINTEREST = "pinterest";
     public static String TAG_LINK_INSTAGRAM = "instagram";
-    public List<ParseObject> images = new ArrayList<>();;
     public  static ParseObject profileObj = null;
-
-    static DownloadCompleteCallback callback_download;
-    public ArrayList<GTCUser> users = new ArrayList<GTCUser>();
-    ArrayList<Academic> academics = new ArrayList<Academic>();
     public static List<ParseObject> events_parse = new ArrayList<ParseObject>();
-    ProgressDialog dialog;
+    static DownloadCompleteCallback callback_download;
+    private static ParseDataManager sharedDataManager = null;
+    public Context context;
+    public ParseInstallation installation;
+    public List<ParseObject> images = new ArrayList<>();
+    public ArrayList<GTCUser> users = new ArrayList<GTCUser>();
     public Location currentLocation;
-    Handler msgHandler = new Handler();
-    float currentDataVersion;
-    float currentAppVersion;
-    float latestDataVersion=1f;
     public Integer stopCounts[];
     public Integer stopStampCounts[];
     public Integer totalStopStampCount;
@@ -137,45 +130,24 @@ public class ParseDataManager implements DownloadCompleteCallback {
     //    ConnectivityBroadcastReceiver connectivityReceiver;
     public boolean isConnected;
     public boolean isParseInitializationPending;
+    MainActivity ac;
+    ProgressDialog berryProgress;
+    ArrayList<Academic> academics = new ArrayList<Academic>();
+    ProgressDialog dialog;
+    Handler msgHandler = new Handler();
+    float currentDataVersion;
+    float currentAppVersion;
+    float latestDataVersion = 1f;
     boolean recipe = false, events_bool = false, intro = false, restuarenta = false, ingredient = false;
+    ProgressDialog checkVersionProgress;
+    ProgressDialog checkVersionProgress1;
 
-    public void setContext(Context ctx) {
-//        ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-//
-//        if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable() && cm.getActiveNetworkInfo().isConnected()) {
-//            sharedDataManager.isConnected = true;
-//        }
-//        IntentFilter iFilter = new IntentFilter();
-//        iFilter.addAction("com.populace.nebraskapassport.ConnectivityIntent");
-//        if(context != null && context != ctx){
-//            try{
-//                if(connectivityReceiver != null){
-//                    context.unregisterReceiver(connectivityReceiver);
-//                }
-//            }catch(Exception e){
-//            }
-//        }else{
-//            if(connectivityReceiver == null){
-//                connectivityReceiver= new ConnectivityBroadcastReceiver();
-//            }
-//        }
-        context = ctx;
-
-
-//        try {
-//            context.registerReceiver(connectivityReceiver, iFilter);
-//
-//        } catch (Exception e) {
-//            // TODO: handle exception
-//        }
-
-
-    }
 
 
     private ParseDataManager(Context ctx) {
         context = ctx;
     }
+
     public static GTCObject findByObjectId(ArrayList<? extends GTCObject> objects, String objId) {
         for (GTCObject u : objects) {
             if (u.getObjectId().equalsIgnoreCase(objId))
@@ -194,167 +166,10 @@ public class ParseDataManager implements DownloadCompleteCallback {
         return sharedDataManager;
     }
 
-    public void initialize() {
-
-        try{
-            sharedDataManager.copyInitialData();
-            sharedDataManager.initializeParse();
-            sharedDataManager.prepareDatabase();
-            sharedDataManager.tryUpdateVersion(1f, 1.0f);
-            if(CheckIsConnectedToInternet(context)){
-                new Thread(
-                        new Runnable(){
-
-                            @Override
-                            public void run() {
-                                //   sharedDataManager.downloadUsers();
-                                //     sharedDataManager.downloadPhotos();
-                            }
-                        }).start();
-            }
-            sharedDataManager.loadData();
-
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
-
-    public void prepareDatabase() {
-
-    }
-
-
-
     public static ProgressDialog showProgress(Context context, String title, String message)
     {
         ProgressDialog ringProgressDialog = ProgressDialog.show(context, title,	message, true);
         return ringProgressDialog;
-    }
-
-
-
-    //    public static void showProgress(Context context, String title,
-//                                    String message, final IWorkCallback cb) {
-//        final ProgressDialog ringProgressDialog = ProgressDialog.show(context,
-//                title, message, true);
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    cb.doWork();
-//                } catch (Exception e) {
-//
-//                }
-//                ringProgressDialog.dismiss();
-//            }
-//        }).start();
-//    }
-    public void syncCheckins() {
-    }
-
-    private void copyInitialData() {
-    }
-
-    private void copyFile(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        while ((read = in.read(buffer)) != -1) {
-            out.write(buffer, 0, read);
-        }
-    }
-
-    public void initializeParse() {
-
-
-        ParseObject.registerSubclass(GTCUser.class);
-        ParseObject.registerSubclass(GTCPhoto.class);
-
-
-        try {
-
-            installation = ParseInstallation.getCurrentInstallation();
-            installation.put("appIdentifier", "com.populace.cdguide");
-            installation.saveInBackground();
-
-
-        } catch (Exception e) {
-            System.out.println("Andy error check " + e);
-            e.printStackTrace();
-        }
-
-    }
-
-
-    void writing_profilepic_external(ParseFile file_this) {
-        if (file_this != null) {
-            ParseFile file = (ParseFile) file_this;
-
-            try {
-                if (file.getName() != null) {
-                    String[] filenameTokens = file.getName().split("-");
-                    System.out.println("Andy files check this " + trimNameForImage(filenameTokens[filenameTokens.length - 1]));
-
-                    String fullPath = "/data/data/" + context.getPackageName() + "/files/" + trimNameForImage(filenameTokens[filenameTokens.length - 1]);
-
-                    File file_check = new File(fullPath);
-
-                    if (file_check.exists()) {
-                        System.out.println("Andy data parse true");
-                    } else {
-                        System.out.println("Andy data parse false");
-                        byte[] data = file.getData();
-                        FileOutputStream stream = context.openFileOutput(trimNameForImage(filenameTokens[filenameTokens.length - 1]), Context.MODE_PRIVATE);
-                        stream.write(data);
-                        stream.close();
-
-                    }
-
-                }
-            } catch (ParseException e1) {
-
-                e1.printStackTrace();
-            } catch (FileNotFoundException e) {
-
-                e.printStackTrace();
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    void writing_profilepic_external_Sdcard(ParseFile file_this) {
-        if (file_this != null) {
-            ParseFile file = (ParseFile) file_this;
-
-            if (file.getName() != null) {
-                String[] filenameTokens = file.getName().split("-");
-                try {
-                    byte[] data = file.getData();
-                    File f = new File(Environment.getExternalStorageDirectory()
-                            + File.separator + trimNameForImage(filenameTokens[filenameTokens.length - 1]));
-                    f.createNewFile();
-//			write the bytes in file
-                    FileOutputStream fo = new FileOutputStream(f);
-                    fo.write(data);
-                    fo.close();
-
-                } catch (ParseException e1) {
-
-                    e1.printStackTrace();
-                } catch (FileNotFoundException e) {
-
-                    e.printStackTrace();
-                } catch (IOException e) {
-
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     public static String trimNameForImage(String name) {
@@ -533,510 +348,6 @@ public class ParseDataManager implements DownloadCompleteCallback {
                 .show();
     }
 
-    public boolean CheckIsConnectedToInternet(Context _context) {
-        ConnectivityManager connectivity = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null) {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null)
-                for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return true;
-                    }
-
-        }
-        return false;
-    }
-
-//    public void askDownload(final float dataVersion, final Context ctx){
-//
-//
-//
-//        new Builder(ctx)
-//                .setIcon(R.drawable.icon_50)
-//                .setTitle("Download Update")
-//                .setMessage("Version "+dataVersion+" is available.\nDownload now?")
-//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        downloadData(ctx);
-//                        currentDataVersion=dataVersion;
-//                    }
-//
-//                })
-//                .setNegativeButton("Later", new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        final Builder builder = new Builder(ctx);
-//                        builder.setCancelable(true);
-//                        builder.setTitle("Download Later").setMessage("You can refresh the app content at any time from settings menu").setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // TODO Auto-generated method stub
-//                                dialog.cancel();
-//                            }
-//                        });
-//
-//
-//                        ((Activity) ctx).runOnUiThread(new Runnable() {
-//
-//                            @Override
-//                            public void run() {
-//                                builder.show();
-//
-//                            }
-//                        });
-//
-//                    }
-//                })
-//                .show();
-//    }
-
-    public void downloadData(Context ctx){
-
-
-        sharedDataManager.downloadInformationDataCharacter();
-        downloadUsersData();
-//		new AsyncDownloadData(sharedDataManager).execute();
-    }
-
-
-    public void loadData() {
-
-
-        Intent intent = new Intent();
-        intent.setAction("com.populace.nebraskapassport.loadcompleted");
-        context.sendBroadcast(intent);
-        sharedDataManager.loadAcademics();
-
-    }
-
-
-    public void downloadInformationDataCharacter() {
-        berryProgress = ParseDataManager.sharedDataManager(context).showProgress(ac.context, "character", "Downloading....");
-
-        final BerrySession bs = new BerrySession(context);
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("character");
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> arg0, ParseException e) {
-                if (e == null) {
-                    // your logic here
-                    if (arg0.size() > 0) {
-                        bs.putString(TAG_CHAR_DEFINITION, arg0.get(0).getString(TAG_CHAR_DEFINITION));
-                        bs.putString(TAG_CHAR_BCV, arg0.get(0).getString(TAG_CHAR_BCV));
-                        bs.putString(TAG_CHAR_QOUTE, arg0.get(0).getString(TAG_CHAR_QOUTE));
-
-                        downloadInformationDataAcademic();
-                    }
-
-                } else {
-                    // handle Parse Exception here
-
-                    berryProgress.dismiss();
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-    }
-
-
-    public void downloadBannerImages() {
-        System.out.println("Banner Images Download : ");
-        final BerrySession bs = new BerrySession(context);
-      //  ParseQuery<ParseObject> query = ParseQuery.getQuery("Banner_images");
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Banner_images");
-        query.setLimit(100);
-        query.orderByAscending("section_order");
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        currentUser.logOut();
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, com.parse.ParseException e) {
-
-                if (e == null) {
-                    for (ParseObject obj : objects) {
-
-                        try {
-                            ParseObject.pinAll(objects);
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-
-
-                    }
-
-
-                } else {
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-                    System.out.println("exception : " + e);
-                }
-            }
-        });
-
-
-    }
-
-
-    public void fetchBannerImages() {
-
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Banner_images");
-        query.fromLocalDatastore();
-        query.orderByAscending("section_order");
-        try {
-            images = query.find();
-           System.out.println("Parse size of Images " + images.size());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void downloadInformationDataAcademic() {
-        final BerrySession bs_academics = new BerrySession(context);
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("academic");
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> arg0, ParseException e) {
-                if (e == null) {
-                    // your logic here
-                    if (arg0.size() > 0) {
-                        bs_academics.putString(TAG_ACAD_CLUB, arg0.get(0).getString(TAG_ACAD_CLUB));
-                        bs_academics.putString(TAG_ACAD_LIBRARY, arg0.get(0).getString(TAG_ACAD_LIBRARY));
-                        bs_academics.putString(TAG_ACAD_EVENT_CAL, arg0.get(0).getString(TAG_ACAD_EVENT_CAL));
-                        bs_academics.putString(TAG_ACAD_TUTORING, arg0.get(0).getString(TAG_ACAD_TUTORING));
-                        berryProgress.setTitle("academic");
-                        downloadInformationDataNutrition();
-                    }
-
-                } else {
-                    // handle Parse Exception here
-
-                    berryProgress.dismiss();
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-    }
-
-    public void downloadInformationDataNutrition() {
-        final BerrySession bs_nutrition = new BerrySession(context);
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("nutrition");
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> arg0, ParseException e) {
-                if (e == null) {
-                    // your logic here
-                    if (arg0.size() > 0) {
-                        bs_nutrition.putString(TAG_NUTRITION_DIETS, arg0.get(0).getString(TAG_NUTRITION_DIETS));
-                        bs_nutrition.putString(TAG_NUTRITION_MENU, arg0.get(0).getString(TAG_NUTRITION_MENU));
-                        bs_nutrition.putString(TAG_NUTRITION_CAL_COUNT, arg0.get(0).getString(TAG_NUTRITION_CAL_COUNT));
-                        bs_nutrition.putString(TAG_NUTRITION_MY_DIET, arg0.get(0).getString(TAG_NUTRITION_MY_DIET));
-                        berryProgress.setTitle("nutrition");
-                        downloadInformationDataPhysical();
-                    }
-
-                } else {
-                    // handle Parse Exception here
-                    System.out.println("Exeption..." + e);
-                    berryProgress.dismiss();
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-    }
-
-    public void downloadInformationDataPhysical() {
-        final BerrySession bs_physical = new BerrySession(context);
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("physical");
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> arg0, ParseException e) {
-                if (e == null) {
-                    // your logic here
-                    if (arg0.size() > 0) {
-                        bs_physical.putString(TAG__PHYSICAL_DAILY_WORKOUT, arg0.get(0).getString(TAG__PHYSICAL_DAILY_WORKOUT));
-                        bs_physical.putString(TAG__PHYSICAL_ACTIVITIES, arg0.get(0).getString(TAG__PHYSICAL_ACTIVITIES));
-                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_SCHEDULE, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_SCHEDULE));
-                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_REGISTER, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_REGISTER));
-                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_ON_BIKING, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_ON_BIKING));
-                        bs_physical.putString(TAG__PHYSICAL_THE_CAGE, arg0.get(0).getString(TAG__PHYSICAL_THE_CAGE));
-                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_OFF_HIKING, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_OFF_HIKING));
-                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_OFF_RACE, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_OFF_RACE));
-                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_OFF_RIVER_RENTALS, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_OFF_RIVER_RENTALS));
-                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_ON_TRAIL_MAP, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_ON_TRAIL_MAP));
-                        berryProgress.setTitle("physical");
-                        downloadInformationEmotion();
-                    }
-
-                } else {
-                    // handle Parse Exception here
-
-                    berryProgress.dismiss();
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-    }
-
-    public void downloadInformationEmotion() {
-        final BerrySession bs_emotion = new BerrySession(context);
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("emotion");
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> arg0, ParseException e) {
-                if (e == null) {
-                    // your logic here
-                    if (arg0.size() > 0) {
-                        bs_emotion.putString(TAG_EMOTION_DEFINITION, arg0.get(0).getString(TAG_EMOTION_DEFINITION));
-                        bs_emotion.putString(TAG_EMOTION_OFF_CAMPUS_RESOURCES, arg0.get(0).getString(TAG_EMOTION_OFF_CAMPUS_RESOURCES));
-                        bs_emotion.putString(TAG_EMOTION_ON_CAMPUS_RESOURCES, arg0.get(0).getString(TAG_EMOTION_ON_CAMPUS_RESOURCES));
-
-                        berryProgress.setTitle("emotion");
-                        System.out.println("Exeption...");
-                        downloadInformationSpirtuality();
-                    }
-
-                } else {
-                    // handle Parse Exception here
-                    System.out.println("Exeption..." + e);
-                    berryProgress.dismiss();
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-    }
-
-    public void downloadInformationSpirtuality() {
-        final BerrySession bs_spirtual = new BerrySession(context);
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("spirituality");
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> arg0, ParseException e) {
-                if (e == null) {
-                    // your logic here
-                    if (arg0.size() > 0) {
-                        bs_spirtual.putString(TAG_SPIR_CHAMPLAIN_OFFICES, arg0.get(0).getString(TAG_SPIR_CHAMPLAIN_OFFICES));
-                        bs_spirtual.putString(TAG_SPIR_GROUPS, arg0.get(0).getString(TAG_SPIR_GROUPS));
-                        bs_spirtual.putString(TAG_SPIR_RELIGIOUS_EVENTS, arg0.get(0).getString(TAG_SPIR_RELIGIOUS_EVENTS));
-                        bs_spirtual.putString(TAG_SPIR_SPIRTUALITY, arg0.get(0).getString(TAG_SPIR_SPIRTUALITY));
-                        berryProgress.setTitle("spirituality");
-                        downloadInformationSocial();
-                    }
-
-                } else {
-                    // handle Parse Exception here
-
-                    berryProgress.dismiss();
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-    }
-
-    public void downloadInformationSocial() {
-        final BerrySession bs_social = new BerrySession(context);
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("social");
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> arg0, ParseException e) {
-                if (e == null) {
-                    // your logic here
-                    if (arg0.size() > 0) {
-                        bs_social.putString(TAG_SOCIAL_KCAB, arg0.get(0).getString(TAG_SOCIAL_KCAB));
-                        bs_social.putString(TAG_SOCIAL_SGA, arg0.get(0).getString(TAG_SOCIAL_SGA));
-                        bs_social.putString(TAG_SOCIAL_SPORTS, arg0.get(0).getString(TAG_SOCIAL_SPORTS));
-                        bs_social.putString(TAG_SOCIAL_STD_ACT, arg0.get(0).getString(TAG_SOCIAL_STD_ACT));
-                        berryProgress.setTitle("social");
-                        downloadLinks();
-                        //     downloadCompleted();
-                    }
-
-                } else {
-                    // handle Parse Exception here
-
-                    berryProgress.dismiss();
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-    }
-
-    public void downloadLinks() {
-        final BerrySession bs_links = new BerrySession(context);
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Links");
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> arg0, ParseException e) {
-                if (e == null) {
-                    // your logic here
-                    if (arg0.size() > 0) {
-                        bs_links.putString(TAG_LINK_FACEBOOK, arg0.get(0).getString(TAG_LINK_FACEBOOK));
-                        bs_links.putString(TAG_LINK_TWITTER, arg0.get(0).getString(TAG_LINK_TWITTER));
-                        bs_links.putString(TAG_LINK_INSTAGRAM, arg0.get(0).getString(TAG_LINK_INSTAGRAM));
-                        bs_links.putString(TAG_LINK_YOU_TUBE, arg0.get(0).getString(TAG_LINK_YOU_TUBE));
-                        bs_links.putString(TAG_LINK_PINTEREST, arg0.get(0).getString(TAG_LINK_PINTEREST));
-                        berryProgress.setTitle("Links");
-                      //  downloadBannerImages();
-                        boolean mboolean = false;
-                        SharedPreferences settings = context.getSharedPreferences(context.getPackageName(), 0);
-                        mboolean = settings.getBoolean("FIRST_RUN", false);
-                        if (!mboolean)
-                        {
-                            settings = context.getSharedPreferences(context.getPackageName(), 0);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putBoolean("FIRST_RUN", true);
-                            editor.commit();
-                            berryProgress.dismiss();
-                        } else {
-                            downloadCompleted();
-                        }
-
-                    }
-
-                } else {
-                    // handle Parse Exception here
-                    System.out.println("Exeption..." + e);
-                    berryProgress.dismiss();
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-    }
-
-
-    public void downloadUsersData() {
-
-        ParseQuery<GTCUser> query = new ParseQuery<GTCUser>(GTCUser.class);
-        query.setLimit(1000);
-        query.findInBackground(new FindCallback<GTCUser>() {
-            public void done(List<GTCUser> arg0, ParseException e) {
-                if (e == null) {
-                    // your logic here
-                  /*  System.out.println("Check"+e);
-                    downloadInformationDataCharacter();
-                    berryProgress.dismiss();*/
-                    if (arg0.size() > 0) {
-                        users = (ArrayList<GTCUser>) arg0;
-                    }
-
-                } else {
-                    // handle Parse Exception here
-
-                    Toast.makeText(context, "Error Occured While Downloading",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-    }
-
-    @Override
-    public void downloadCompleted() {
-
-        berryProgress.dismiss();
-
-        SharedPreferences settings = context.getSharedPreferences(
-                context.getPackageName(), 0);
-        System.gc();
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putFloat("DataVersion", currentDataVersion);
-        editor.putFloat("AppVersion", currentAppVersion);
-        editor.commit();
-        sharedDataManager.loadData();
-        sendMessage();
-
-    }
-    private void sendMessage() {
-
-        Intent intent = new Intent("downloadcompleted");
-        // You can also include some extra data.
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-    }
-    public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(intent.getAction().equalsIgnoreCase("com.populace.berrycollege.ConnectivityIntent")){
-
-                boolean isConnected = intent.getBooleanExtra("isConnected", false);
-                sharedDataManager.isConnected = isConnected;
-                if(isConnected){
-                    if(sharedDataManager.isParseInitializationPending){
-                        sharedDataManager.initializeParse();
-                    }
-                    sharedDataManager.syncCheckins();
-
-                }else{
-
-                }
-            }
-
-
-
-        }
-
-    }
-
-
-    private class SaveData extends AsyncTask<String, Void, String> {
-
-        ArrayList<ParseFile> image_values;
-        String city_name;
-
-
-        public SaveData(ArrayList<ParseFile> image_values, String city_name) {
-            super();
-            this.image_values = image_values;
-            this.city_name = city_name;
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            // your background code here. Don't touch any UI components
-            for (int i = 0; i < image_values.size(); i++) {
-                writing_profilepic_external(image_values.get(i));
-
-//				writing_profilepic_external_Sdcard(image_values.get(i));
-            }
-
-
-            return city_name;
-        }
-
-        protected void onPostExecute(String result) {
-            //This is run on the UI thread so you can do as you wish here
-        }
-    }
-
     public static void showAlertSimple(Context ac, String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(ac).create();
         alertDialog.setMessage(message);
@@ -1114,6 +425,53 @@ public class ParseDataManager implements DownloadCompleteCallback {
         return bitmap;
     }
 
+//    public void askDownload(final float dataVersion, final Context ctx){
+//
+//
+//
+//        new Builder(ctx)
+//                .setIcon(R.drawable.icon_50)
+//                .setTitle("Download Update")
+//                .setMessage("Version "+dataVersion+" is available.\nDownload now?")
+//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        downloadData(ctx);
+//                        currentDataVersion=dataVersion;
+//                    }
+//
+//                })
+//                .setNegativeButton("Later", new DialogInterface.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        final Builder builder = new Builder(ctx);
+//                        builder.setCancelable(true);
+//                        builder.setTitle("Download Later").setMessage("You can refresh the app content at any time from settings menu").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // TODO Auto-generated method stub
+//                                dialog.cancel();
+//                            }
+//                        });
+//
+//
+//                        ((Activity) ctx).runOnUiThread(new Runnable() {
+//
+//                            @Override
+//                            public void run() {
+//                                builder.show();
+//
+//                            }
+//                        });
+//
+//                    }
+//                })
+//                .show();
+//    }
+
     public static Bitmap flipImage(Bitmap source) {
 
         Bitmap bitmap = null;
@@ -1131,12 +489,6 @@ public class ParseDataManager implements DownloadCompleteCallback {
         return bitmap;
     }
 
-
-    public final static int PIC_CROP = 2;
-    public final static int TAKE_PICTURE = 1;
-
-    private static final int REQ_CODE_PICK_IMAGE = 100;
-
     public static void photoFunctionalityLaunch(final Activity context, final Uri imageUri) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Choose an option");
@@ -1148,7 +500,7 @@ public class ParseDataManager implements DownloadCompleteCallback {
                     Intent i = new Intent(Intent.ACTION_PICK);
                     i.setType("image/*");
                     context.startActivityForResult(i, REQ_CODE_PICK_IMAGE);
-	        	/*
+                /*
 	        	Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
 	        	photoPickerIntent.setType("image/*");
 	        	((Activity) context).startActivityForResult(photoPickerIntent, REQ_CODE_PICK_IMAGE);*/
@@ -1340,6 +692,588 @@ public class ParseDataManager implements DownloadCompleteCallback {
         new Crop(picUri).output(picUri).asSquare().start((Activity) context);
     }
 
+    public void setContext(Context ctx) {
+//        ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//        if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable() && cm.getActiveNetworkInfo().isConnected()) {
+//            sharedDataManager.isConnected = true;
+//        }
+//        IntentFilter iFilter = new IntentFilter();
+//        iFilter.addAction("com.populace.nebraskapassport.ConnectivityIntent");
+//        if(context != null && context != ctx){
+//            try{
+//                if(connectivityReceiver != null){
+//                    context.unregisterReceiver(connectivityReceiver);
+//                }
+//            }catch(Exception e){
+//            }
+//        }else{
+//            if(connectivityReceiver == null){
+//                connectivityReceiver= new ConnectivityBroadcastReceiver();
+//            }
+//        }
+        context = ctx;
+
+
+//        try {
+//            context.registerReceiver(connectivityReceiver, iFilter);
+//
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//        }
+
+
+    }
+
+    public void initialize() {
+
+        try {
+            sharedDataManager.copyInitialData();
+            sharedDataManager.initializeParse();
+            sharedDataManager.prepareDatabase();
+            sharedDataManager.tryUpdateVersion(1f, 1.0f);
+            if (CheckIsConnectedToInternet(context)) {
+                new Thread(
+                        new Runnable() {
+
+                            @Override
+                            public void run() {
+                                //   sharedDataManager.downloadUsers();
+                                //     sharedDataManager.downloadPhotos();
+                            }
+                        }).start();
+            }
+            sharedDataManager.loadData();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void prepareDatabase() {
+
+    }
+
+    //    public static void showProgress(Context context, String title,
+//                                    String message, final IWorkCallback cb) {
+//        final ProgressDialog ringProgressDialog = ProgressDialog.show(context,
+//                title, message, true);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    cb.doWork();
+//                } catch (Exception e) {
+//
+//                }
+//                ringProgressDialog.dismiss();
+//            }
+//        }).start();
+//    }
+    public void syncCheckins() {
+    }
+
+    private void copyInitialData() {
+    }
+
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
+        }
+    }
+
+    public void initializeParse() {
+
+
+        ParseObject.registerSubclass(GTCUser.class);
+        ParseObject.registerSubclass(GTCPhoto.class);
+
+
+        try {
+
+            installation = ParseInstallation.getCurrentInstallation();
+            installation.put("appIdentifier", "com.populace.cdguide");
+            installation.saveInBackground();
+
+
+        } catch (Exception e) {
+            System.out.println("Andy error check " + e);
+            e.printStackTrace();
+        }
+
+    }
+
+    void writing_profilepic_external(ParseFile file_this) {
+        if (file_this != null) {
+            ParseFile file = file_this;
+
+            try {
+                if (file.getName() != null) {
+                    String[] filenameTokens = file.getName().split("-");
+                    System.out.println("Andy files check this " + trimNameForImage(filenameTokens[filenameTokens.length - 1]));
+
+                    String fullPath = "/data/data/" + context.getPackageName() + "/files/" + trimNameForImage(filenameTokens[filenameTokens.length - 1]);
+
+                    File file_check = new File(fullPath);
+
+                    if (file_check.exists()) {
+                        System.out.println("Andy data parse true");
+                    } else {
+                        System.out.println("Andy data parse false");
+                        byte[] data = file.getData();
+                        FileOutputStream stream = context.openFileOutput(trimNameForImage(filenameTokens[filenameTokens.length - 1]), Context.MODE_PRIVATE);
+                        stream.write(data);
+                        stream.close();
+
+                    }
+
+                }
+            } catch (ParseException e1) {
+
+                e1.printStackTrace();
+            } catch (FileNotFoundException e) {
+
+                e.printStackTrace();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    void writing_profilepic_external_Sdcard(ParseFile file_this) {
+        if (file_this != null) {
+            ParseFile file = file_this;
+
+            if (file.getName() != null) {
+                String[] filenameTokens = file.getName().split("-");
+                try {
+                    byte[] data = file.getData();
+                    File f = new File(Environment.getExternalStorageDirectory()
+                            + File.separator + trimNameForImage(filenameTokens[filenameTokens.length - 1]));
+                    f.createNewFile();
+//			write the bytes in file
+                    FileOutputStream fo = new FileOutputStream(f);
+                    fo.write(data);
+                    fo.close();
+
+                } catch (ParseException e1) {
+
+                    e1.printStackTrace();
+                } catch (FileNotFoundException e) {
+
+                    e.printStackTrace();
+                } catch (IOException e) {
+
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public boolean CheckIsConnectedToInternet(Context _context) {
+        ConnectivityManager connectivity = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+
+        }
+        return false;
+    }
+
+    public void downloadData(Context ctx){
+
+
+        sharedDataManager.downloadInformationDataCharacter();
+        downloadUsersData();
+//		new AsyncDownloadData(sharedDataManager).execute();
+    }
+
+    public void loadData() {
+
+
+        Intent intent = new Intent();
+        intent.setAction("com.populace.nebraskapassport.loadcompleted");
+        context.sendBroadcast(intent);
+        sharedDataManager.loadAcademics();
+
+    }
+
+    public void downloadInformationDataCharacter() {
+        berryProgress = ParseDataManager.sharedDataManager(context).showProgress(MainActivity.context, "character", "Downloading....");
+
+        final BerrySession bs = new BerrySession(context);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("character");
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> arg0, ParseException e) {
+                if (e == null) {
+                    // your logic here
+                    if (arg0.size() > 0) {
+                        bs.putString(TAG_CHAR_DEFINITION, arg0.get(0).getString(TAG_CHAR_DEFINITION));
+                        bs.putString(TAG_CHAR_BCV, arg0.get(0).getString(TAG_CHAR_BCV));
+                        bs.putString(TAG_CHAR_QOUTE, arg0.get(0).getString(TAG_CHAR_QOUTE));
+
+                        downloadInformationDataAcademic();
+                    }
+
+                } else {
+                    // handle Parse Exception here
+
+                    berryProgress.dismiss();
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    public void downloadBannerImages() {
+        System.out.println("Banner Images Download : ");
+        final BerrySession bs = new BerrySession(context);
+      //  ParseQuery<ParseObject> query = ParseQuery.getQuery("Banner_images");
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Banner_images");
+        query.setLimit(100);
+        query.orderByAscending("section_order");
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseUser.logOut();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, com.parse.ParseException e) {
+
+                if (e == null) {
+                    for (ParseObject obj : objects) {
+
+                        try {
+                            ParseObject.pinAll(objects);
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+
+
+                    }
+
+
+                } else {
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+                    System.out.println("exception : " + e);
+                }
+            }
+        });
+
+
+    }
+
+    public void fetchBannerImages() {
+
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Banner_images");
+        query.fromLocalDatastore();
+        query.orderByAscending("section_order");
+        try {
+            images = query.find();
+           System.out.println("Parse size of Images " + images.size());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void downloadInformationDataAcademic() {
+        final BerrySession bs_academics = new BerrySession(context);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("academic");
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> arg0, ParseException e) {
+                if (e == null) {
+                    // your logic here
+                    if (arg0.size() > 0) {
+                        bs_academics.putString(TAG_ACAD_CLUB, arg0.get(0).getString(TAG_ACAD_CLUB));
+                        bs_academics.putString(TAG_ACAD_LIBRARY, arg0.get(0).getString(TAG_ACAD_LIBRARY));
+                        bs_academics.putString(TAG_ACAD_EVENT_CAL, arg0.get(0).getString(TAG_ACAD_EVENT_CAL));
+                        bs_academics.putString(TAG_ACAD_TUTORING, arg0.get(0).getString(TAG_ACAD_TUTORING));
+                        berryProgress.setTitle("academic");
+                        downloadInformationDataNutrition();
+                    }
+
+                } else {
+                    // handle Parse Exception here
+
+                    berryProgress.dismiss();
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    public void downloadInformationDataNutrition() {
+        final BerrySession bs_nutrition = new BerrySession(context);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("nutrition");
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> arg0, ParseException e) {
+                if (e == null) {
+                    // your logic here
+                    if (arg0.size() > 0) {
+                        bs_nutrition.putString(TAG_NUTRITION_DIETS, arg0.get(0).getString(TAG_NUTRITION_DIETS));
+                        bs_nutrition.putString(TAG_NUTRITION_MENU, arg0.get(0).getString(TAG_NUTRITION_MENU));
+                        bs_nutrition.putString(TAG_NUTRITION_CAL_COUNT, arg0.get(0).getString(TAG_NUTRITION_CAL_COUNT));
+                        bs_nutrition.putString(TAG_NUTRITION_MY_DIET, arg0.get(0).getString(TAG_NUTRITION_MY_DIET));
+                        berryProgress.setTitle("nutrition");
+                        downloadInformationDataPhysical();
+                    }
+
+                } else {
+                    // handle Parse Exception here
+                    System.out.println("Exeption..." + e);
+                    berryProgress.dismiss();
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    public void downloadInformationDataPhysical() {
+        final BerrySession bs_physical = new BerrySession(context);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("physical");
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> arg0, ParseException e) {
+                if (e == null) {
+                    // your logic here
+                    if (arg0.size() > 0) {
+                        bs_physical.putString(TAG__PHYSICAL_DAILY_WORKOUT, arg0.get(0).getString(TAG__PHYSICAL_DAILY_WORKOUT));
+                        bs_physical.putString(TAG__PHYSICAL_ACTIVITIES, arg0.get(0).getString(TAG__PHYSICAL_ACTIVITIES));
+                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_SCHEDULE, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_SCHEDULE));
+                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_REGISTER, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_REGISTER));
+                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_ON_BIKING, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_ON_BIKING));
+                        bs_physical.putString(TAG__PHYSICAL_THE_CAGE, arg0.get(0).getString(TAG__PHYSICAL_THE_CAGE));
+                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_OFF_HIKING, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_OFF_HIKING));
+                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_OFF_RACE, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_OFF_RACE));
+                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_OFF_RIVER_RENTALS, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_OFF_RIVER_RENTALS));
+                        bs_physical.putString(TAG__PHYSICAL_INTRAMURAL_ON_TRAIL_MAP, arg0.get(0).getString(TAG__PHYSICAL_INTRAMURAL_ON_TRAIL_MAP));
+                        berryProgress.setTitle("physical");
+                        downloadInformationEmotion();
+                    }
+
+                } else {
+                    // handle Parse Exception here
+
+                    berryProgress.dismiss();
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    public void downloadInformationEmotion() {
+        final BerrySession bs_emotion = new BerrySession(context);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("emotion");
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> arg0, ParseException e) {
+                if (e == null) {
+                    // your logic here
+                    if (arg0.size() > 0) {
+                        bs_emotion.putString(TAG_EMOTION_DEFINITION, arg0.get(0).getString(TAG_EMOTION_DEFINITION));
+                        bs_emotion.putString(TAG_EMOTION_OFF_CAMPUS_RESOURCES, arg0.get(0).getString(TAG_EMOTION_OFF_CAMPUS_RESOURCES));
+                        bs_emotion.putString(TAG_EMOTION_ON_CAMPUS_RESOURCES, arg0.get(0).getString(TAG_EMOTION_ON_CAMPUS_RESOURCES));
+                        bs_emotion.putString(TAG_EMOTION_PEER_RESOURCES, arg0.get(0).getString(TAG_EMOTION_PEER_RESOURCES));
+                        berryProgress.setTitle("emotion");
+                        System.out.println("Exeption...");
+                        downloadInformationSpirtuality();
+                    }
+
+                } else {
+                    // handle Parse Exception here
+                    System.out.println("Exeption..." + e);
+                    berryProgress.dismiss();
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    public void downloadInformationSpirtuality() {
+        final BerrySession bs_spirtual = new BerrySession(context);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("spirituality");
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> arg0, ParseException e) {
+                if (e == null) {
+                    // your logic here
+                    if (arg0.size() > 0) {
+                        bs_spirtual.putString(TAG_SPIR_CHAMPLAIN_OFFICES, arg0.get(0).getString(TAG_SPIR_CHAMPLAIN_OFFICES));
+                        bs_spirtual.putString(TAG_SPIR_GROUPS, arg0.get(0).getString(TAG_SPIR_GROUPS));
+                        bs_spirtual.putString(TAG_SPIR_RELIGIOUS_EVENTS, arg0.get(0).getString(TAG_SPIR_RELIGIOUS_EVENTS));
+                        bs_spirtual.putString(TAG_SPIR_SPIRTUALITY, arg0.get(0).getString(TAG_SPIR_SPIRTUALITY));
+                        berryProgress.setTitle("spirituality");
+                        downloadInformationSocial();
+                    }
+
+                } else {
+                    // handle Parse Exception here
+
+                    berryProgress.dismiss();
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    public void downloadInformationSocial() {
+        final BerrySession bs_social = new BerrySession(context);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("social");
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> arg0, ParseException e) {
+                if (e == null) {
+                    // your logic here
+                    if (arg0.size() > 0) {
+                        bs_social.putString(TAG_SOCIAL_KCAB, arg0.get(0).getString(TAG_SOCIAL_KCAB));
+                        bs_social.putString(TAG_SOCIAL_SGA, arg0.get(0).getString(TAG_SOCIAL_SGA));
+                        bs_social.putString(TAG_SOCIAL_SPORTS, arg0.get(0).getString(TAG_SOCIAL_SPORTS));
+                        bs_social.putString(TAG_SOCIAL_STD_ACT, arg0.get(0).getString(TAG_SOCIAL_STD_ACT));
+                        berryProgress.setTitle("social");
+                        downloadLinks();
+                        //     downloadCompleted();
+                    }
+
+                } else {
+                    // handle Parse Exception here
+
+                    berryProgress.dismiss();
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    public void downloadLinks() {
+        final BerrySession bs_links = new BerrySession(context);
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Links");
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> arg0, ParseException e) {
+                if (e == null) {
+                    // your logic here
+                    if (arg0.size() > 0) {
+                        bs_links.putString(TAG_LINK_FACEBOOK, arg0.get(0).getString(TAG_LINK_FACEBOOK));
+                        bs_links.putString(TAG_LINK_TWITTER, arg0.get(0).getString(TAG_LINK_TWITTER));
+                        bs_links.putString(TAG_LINK_INSTAGRAM, arg0.get(0).getString(TAG_LINK_INSTAGRAM));
+                        bs_links.putString(TAG_LINK_YOU_TUBE, arg0.get(0).getString(TAG_LINK_YOU_TUBE));
+                        bs_links.putString(TAG_LINK_PINTEREST, arg0.get(0).getString(TAG_LINK_PINTEREST));
+                        berryProgress.setTitle("Links");
+                      //  downloadBannerImages();
+                        boolean mboolean = false;
+                        SharedPreferences settings = context.getSharedPreferences(context.getPackageName(), 0);
+                        mboolean = settings.getBoolean("FIRST_RUN", false);
+                        if (!mboolean)
+                        {
+                            settings = context.getSharedPreferences(context.getPackageName(), 0);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putBoolean("FIRST_RUN", true);
+                            editor.commit();
+                            berryProgress.dismiss();
+                        } else {
+                            downloadCompleted();
+                        }
+
+                    } else {
+                        downloadCompleted();
+                    }
+
+                } else {
+                    // handle Parse Exception here
+                    System.out.println("Exeption..." + e);
+                    berryProgress.dismiss();
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    public void downloadUsersData() {
+
+        ParseQuery<GTCUser> query = new ParseQuery<GTCUser>(GTCUser.class);
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<GTCUser>() {
+            public void done(List<GTCUser> arg0, ParseException e) {
+                if (e == null) {
+                    // your logic here
+                  /*  System.out.println("Check"+e);
+                    downloadInformationDataCharacter();
+                    berryProgress.dismiss();*/
+                    if (arg0.size() > 0) {
+                        users = (ArrayList<GTCUser>) arg0;
+                    }
+
+                } else {
+                    // handle Parse Exception here
+
+                    Toast.makeText(context, "Error Occured While Downloading",
+                            Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void downloadCompleted() {
+
+        berryProgress.dismiss();
+
+        SharedPreferences settings = context.getSharedPreferences(
+                context.getPackageName(), 0);
+        System.gc();
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putFloat("DataVersion", currentDataVersion);
+        editor.putFloat("AppVersion", currentAppVersion);
+        editor.commit();
+        sharedDataManager.loadData();
+        sendMessage();
+
+    }
+
+    private void sendMessage() {
+
+        Intent intent = new Intent("downloadcompleted");
+        // You can also include some extra data.
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
 
 //    public void login(String email, final ILoginCallback callback) {
 //        ParseUser.logInInBackground(email, "123456", new LogInCallback() {
@@ -1443,7 +1377,7 @@ public class ParseDataManager implements DownloadCompleteCallback {
                     }
 
                 } else {
-                    callback.onLogin((user == null) ? false : true, e, user);
+                    callback.onLogin(user != null, e, user);
                 }
 
 
@@ -1454,7 +1388,7 @@ public class ParseDataManager implements DownloadCompleteCallback {
 
     void writing_profilepic_external(ParseFile file_this, String image_name) {
         if (file_this != null) {
-            ParseFile file = (ParseFile) file_this;
+            ParseFile file = file_this;
 
             try {
                 if (file.getName() != null) {
@@ -1502,7 +1436,7 @@ public class ParseDataManager implements DownloadCompleteCallback {
             @Override
             public void done(com.parse.ParseException e) {
                 if (e == null) {
-                    final GTCUser uprof = (GTCUser) GTCUser.create(GTCUser.class);
+                    final GTCUser uprof = GTCUser.create(GTCUser.class);
                     uprof.setUserEmail(email);
                     uprof.setUsername(email);
                     uprof.setFirstName(firstname);
@@ -1557,7 +1491,9 @@ public class ParseDataManager implements DownloadCompleteCallback {
         user.setPassword(password);
         user.put("firstname", firstname);
         user.put("lastname", lastname);
-        user.put("user_image", image);
+        if (image != null) {
+            user.put("user_image", image);
+        }
         user.put("pwd", password);
         user.put("program_year", year);
         user.signUpInBackground(new SignUpCallback() {
@@ -1566,7 +1502,7 @@ public class ParseDataManager implements DownloadCompleteCallback {
                     try {
                         ParseUser.logIn(email, password);
                         final ParseUser user1 = ParseUser.getCurrentUser();
-                        final GTCUser uprof = (GTCUser) GTCUser.create(GTCUser.class);
+                        final GTCUser uprof = GTCUser.create(GTCUser.class);
                         uprof.setUserEmail(email);
                         uprof.setUsername(email);
                         uprof.setFirstName(firstname);
@@ -1795,7 +1731,7 @@ public class ParseDataManager implements DownloadCompleteCallback {
           //  ParseObject profileObj = ((ParseObject) usr.get("profile")).fetchIfNeeded();
           //  System.out.println("user Profile: "+profileObj);
 
-            ((ParseObject) getCurrentUser().getParseObject("profile")).fetchIfNeededInBackground(new GetCallback<GTCUser>() {
+            getCurrentUser().getParseObject("profile").fetchIfNeededInBackground(new GetCallback<GTCUser>() {
 
                 @Override
                 public void done(GTCUser uprof, com.parse.ParseException arg1) {
@@ -1914,8 +1850,6 @@ public class ParseDataManager implements DownloadCompleteCallback {
         }
     }
 
-
-    ProgressDialog checkVersionProgress;
     public void checkDataVersion(final boolean withProgress, final Context ctx){
         if(CheckIsConnectedToInternet(ctx)){
 
@@ -2049,7 +1983,7 @@ public class ParseDataManager implements DownloadCompleteCallback {
             }
         }
     }
-    ProgressDialog checkVersionProgress1;
+
     public void checkDataVersion_refresh(final boolean withProgress, final Context ctx){
         if(CheckIsConnectedToInternet(ctx)){
 
@@ -2253,6 +2187,59 @@ public class ParseDataManager implements DownloadCompleteCallback {
                 .show();
     }
 
+    public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equalsIgnoreCase("com.populace.berrycollege.ConnectivityIntent")) {
+
+                boolean isConnected = intent.getBooleanExtra("isConnected", false);
+                sharedDataManager.isConnected = isConnected;
+                if (isConnected) {
+                    if (sharedDataManager.isParseInitializationPending) {
+                        sharedDataManager.initializeParse();
+                    }
+                    sharedDataManager.syncCheckins();
+
+                } else {
+
+                }
+            }
+
+
+        }
+
+    }
+
+    private class SaveData extends AsyncTask<String, Void, String> {
+
+        ArrayList<ParseFile> image_values;
+        String city_name;
+
+
+        public SaveData(ArrayList<ParseFile> image_values, String city_name) {
+            super();
+            this.image_values = image_values;
+            this.city_name = city_name;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            // your background code here. Don't touch any UI components
+            for (int i = 0; i < image_values.size(); i++) {
+                writing_profilepic_external(image_values.get(i));
+
+//				writing_profilepic_external_Sdcard(image_values.get(i));
+            }
+
+
+            return city_name;
+        }
+
+        protected void onPostExecute(String result) {
+            //This is run on the UI thread so you can do as you wish here
+        }
+    }
 
     public class AsyncDownloadData extends AsyncTask<Void, CharSequence, Void> {
         DownloadCompleteCallback callback;

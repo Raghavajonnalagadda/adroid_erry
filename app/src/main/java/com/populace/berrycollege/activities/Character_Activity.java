@@ -1,12 +1,14 @@
 package com.populace.berrycollege.activities;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -28,6 +30,8 @@ import com.populace.berrycollege.managers.ParseDataManager;
 public class Character_Activity extends AppCompatActivity implements OnClickListener {
     private ImageView definition, bcvs, quote,handbook,character;
 
+    private LinearLayout _definition, _bcvs, _quote, _handbook;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,8 @@ public class Character_Activity extends AppCompatActivity implements OnClickList
         ParseFile fl = (ParseFile) obj.get("section_image");
         String imageUri = fl.getUrl();
 
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.character_light)));
 
 
         //store image in cache memopry
@@ -92,53 +98,53 @@ public class Character_Activity extends AppCompatActivity implements OnClickList
     }
 
     private void findViewByIds() {
-        definition = (ImageView) findViewById(R.id.definition);
-        bcvs = (ImageView) findViewById(R.id.bcvs);
-        quote = (ImageView) findViewById(R.id.quote);
-        handbook = (ImageView) findViewById(R.id.handbook);
+        _definition = (LinearLayout) findViewById(R.id.definition);
+        _bcvs = (LinearLayout) findViewById(R.id.bcvs);
+        _quote = (LinearLayout) findViewById(R.id.quote);
+        _handbook = (LinearLayout) findViewById(R.id.handbook);
         character = (ImageView) findViewById(R.id.character_image);
 
     }
 
     private void InitializeListeners() {
-        definition.setOnClickListener(this);
-        bcvs.setOnClickListener(this);
-        quote.setOnClickListener(this);
-        handbook.setOnClickListener(this);
+        _definition.setOnClickListener(this);
+        _bcvs.setOnClickListener(this);
+        _quote.setOnClickListener(this);
+        _handbook.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.definition:
-                definition.setBackgroundColor(getResources().getColor(R.color.character_dark));
-                bcvs.setBackgroundColor(getResources().getColor(R.color.character_light));
-                quote.setBackgroundColor(getResources().getColor(R.color.character_light));
-                handbook.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _definition.setBackgroundColor(getResources().getColor(R.color.character_dark));
+                _bcvs.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _quote.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _handbook.setBackgroundColor(getResources().getColor(R.color.character_light));
                 getFragmentManager().beginTransaction().replace(R.id.container1,new Definition(),null).commit();
                 break;
 
             case R.id.bcvs:
-                definition.setBackgroundColor(getResources().getColor(R.color.character_light));
-                bcvs.setBackgroundColor(getResources().getColor(R.color.character_dark));
-                quote.setBackgroundColor(getResources().getColor(R.color.character_light));
-                handbook.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _definition.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _bcvs.setBackgroundColor(getResources().getColor(R.color.character_dark));
+                _quote.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _handbook.setBackgroundColor(getResources().getColor(R.color.character_light));
                 getFragmentManager().beginTransaction().replace(R.id.container1,new Bcvs(),null).commit();
                 break;
 
             case R.id.quote:
-                definition.setBackgroundColor(getResources().getColor(R.color.character_light));
-                bcvs.setBackgroundColor(getResources().getColor(R.color.character_light));
-                quote.setBackgroundColor(getResources().getColor(R.color.character_dark));
-                handbook.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _definition.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _bcvs.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _quote.setBackgroundColor(getResources().getColor(R.color.character_dark));
+                _handbook.setBackgroundColor(getResources().getColor(R.color.character_light));
                 getFragmentManager().beginTransaction().replace(R.id.container1,new Quote(),null).commit();
                 break;
 
             case R.id.handbook:
-                definition.setBackgroundColor(getResources().getColor(R.color.character_light));
-                bcvs.setBackgroundColor(getResources().getColor(R.color.character_light));
-                quote.setBackgroundColor(getResources().getColor(R.color.character_light));
-                handbook.setBackgroundColor(getResources().getColor(R.color.character_dark));
+                _definition.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _bcvs.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _quote.setBackgroundColor(getResources().getColor(R.color.character_light));
+                _handbook.setBackgroundColor(getResources().getColor(R.color.character_dark));
                 getFragmentManager().beginTransaction().replace(R.id.container1,new HandbookFragment(),null).commit();
                 break;
 

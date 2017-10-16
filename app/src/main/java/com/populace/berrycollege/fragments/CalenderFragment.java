@@ -32,11 +32,14 @@ public class CalenderFragment extends Fragment {
         pd.setCancelable(false);
         pd.show();
         pd.setCancelable(false);
+            event_cal.getSettings().setJavaScriptEnabled(true);
         event_cal.setWebViewClient(new MyWebViewClient());
         bs = new BerrySession(this.getActivity());
 
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         String calender = bs.getString(ParseDataManager.TAG_ACAD_EVENT_CAL);
+            //   String diet = bs.getString(ParseDataManager.TAG_NUTRITION_DIETS);
+
         //     String calender = academic.getEventCal();
         event_cal.loadUrl(calender);
     }

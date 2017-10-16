@@ -1,12 +1,14 @@
 package com.populace.berrycollege.activities;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -26,7 +28,9 @@ import com.populace.berrycollege.managers.ParseDataManager;
 
 
 public class Acadmic_Activity extends AppCompatActivity implements OnClickListener {
-    private ImageView calender,clubs,library,tutoring,academic;
+    private ImageView calendar, clubs, library, tutoring, academic;
+
+    private LinearLayout _calendar, _clubs, _library, _asc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public class Acadmic_Activity extends AppCompatActivity implements OnClickListen
         String imageUri = fl.getUrl();
 
 
-
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.acadmic_light)));
         //store image in cache memopry
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading()
@@ -92,17 +96,17 @@ public class Acadmic_Activity extends AppCompatActivity implements OnClickListen
     }
 
     private void InitializeListeners() {
-        calender.setOnClickListener(this);
-        clubs.setOnClickListener(this);
-        library.setOnClickListener(this);
-        tutoring.setOnClickListener(this);
+        _calendar.setOnClickListener(this);
+        _clubs.setOnClickListener(this);
+        _library.setOnClickListener(this);
+        _asc.setOnClickListener(this);
     }
 
     private void findViewByIds() {
-        calender=(ImageView)findViewById(R.id.ivcalander);
-        clubs=(ImageView)findViewById(R.id.ivclubs);
-        library=(ImageView)findViewById(R.id.ivlibrary);
-        tutoring=(ImageView)findViewById(R.id.ivtutoring);
+        _calendar = (LinearLayout) findViewById(R.id.ivcalendar);
+        _clubs = (LinearLayout) findViewById(R.id.ivclubs);
+        _library = (LinearLayout) findViewById(R.id.ivlibrary);
+        _asc = (LinearLayout) findViewById(R.id.ivasc);
         academic=(ImageView)findViewById(R.id.acadmic_image);
 
     }
@@ -110,35 +114,35 @@ public class Acadmic_Activity extends AppCompatActivity implements OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.ivcalander:
-                calender.setBackgroundColor(getResources().getColor(R.color.acadmic_dark));
-                clubs.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
-                library.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
-                tutoring.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+            case R.id.ivcalendar:
+                _calendar.setBackgroundColor(getResources().getColor(R.color.acadmic_dark));
+                _clubs.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _library.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _asc.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
                 getFragmentManager().beginTransaction().replace(R.id.container, new CalenderFragment(), null).commit();
                 break;
 
             case R.id.ivclubs:
-                calender.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
-                clubs.setBackgroundColor(getResources().getColor(R.color.acadmic_dark));
-                library.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
-                tutoring.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _calendar.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _clubs.setBackgroundColor(getResources().getColor(R.color.acadmic_dark));
+                _library.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _asc.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
                 getFragmentManager().beginTransaction().replace(R.id.container,new ClubFragment(),null).commit();
                 break;
 
             case R.id.ivlibrary:
-                calender.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
-                clubs.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
-                library.setBackgroundColor(getResources().getColor(R.color.acadmic_dark));
-                tutoring.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _calendar.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _clubs.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _library.setBackgroundColor(getResources().getColor(R.color.acadmic_dark));
+                _asc.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
                 getFragmentManager().beginTransaction().replace(R.id.container,new LibraryFragment(),null).commit();
                 break;
 
-            case R.id.ivtutoring:
-                calender.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
-                clubs.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
-                library.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
-                tutoring.setBackgroundColor(getResources().getColor(R.color.acadmic_dark));
+            case R.id.ivasc:
+                _calendar.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _clubs.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _library.setBackgroundColor(getResources().getColor(R.color.acadmic_light));
+                _asc.setBackgroundColor(getResources().getColor(R.color.acadmic_dark));
                 getFragmentManager().beginTransaction().replace(R.id.container,new TutoringFragment(),null).commit();
                 break;
         }

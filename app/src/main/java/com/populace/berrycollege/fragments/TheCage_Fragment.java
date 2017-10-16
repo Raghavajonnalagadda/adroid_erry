@@ -33,6 +33,7 @@ public class TheCage_Fragment extends Fragment {
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         String cage = bs.getString(ParseDataManager.TAG__PHYSICAL_THE_CAGE);
+            the_cage.getSettings().setJavaScriptEnabled(true);
         the_cage.loadUrl(cage);
         }
         else

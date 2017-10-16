@@ -1,12 +1,14 @@
 package com.populace.berrycollege.activities;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -21,12 +23,14 @@ import com.populace.berrycollege.R;
 import com.populace.berrycollege.fragments.Activities_Fragment;
 import com.populace.berrycollege.fragments.Daily_Workout_Fragment;
 import com.populace.berrycollege.fragments.Intramural;
+import com.populace.berrycollege.fragments.Quit_Fragment;
 import com.populace.berrycollege.fragments.TheCage_Fragment;
 import com.populace.berrycollege.managers.ParseDataManager;
 
 
 public class Physical_Activity extends AppCompatActivity implements OnClickListener{
-    private ImageView dailyWorkout,theCage, activities,intrmural,physical;
+    private ImageView dailyWorkout, theCage, activities, intrmural, physical, quite_tab;
+    private LinearLayout _dailyWorkout, _theCage, _activities, _intrmural, _quiteTab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,8 @@ public class Physical_Activity extends AppCompatActivity implements OnClickListe
         System.out.println("Image for banner:"+obj);
         ParseFile fl = (ParseFile) obj.get("section_image");
         String imageUri = fl.getUrl();
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Physical_light)));
 
 
 
@@ -90,54 +96,69 @@ public class Physical_Activity extends AppCompatActivity implements OnClickListe
     }
 
     private void findViewByIds() {
-        dailyWorkout = (ImageView) findViewById(R.id.ivdaily_workout);
-        theCage = (ImageView) findViewById(R.id.ivthe_cage);
-        activities = (ImageView) findViewById(R.id.ivactivities);
-        intrmural = (ImageView) findViewById(R.id.ivintramural);
-        physical = (ImageView) findViewById(R.id.physical_image);
+        _dailyWorkout = (LinearLayout) findViewById(R.id.ivdaily_workout);
+        _theCage = (LinearLayout) findViewById(R.id.ivthe_cage);
 
+        _activities = (LinearLayout) findViewById(R.id.ivactivities);
+        _intrmural = (LinearLayout) findViewById(R.id.ivintramural);
+        physical = (ImageView) findViewById(R.id.physical_image);
+        _quiteTab = (LinearLayout) findViewById(R.id.ivquite_tab);
     }
 
     private void InitializeListeners() {
-        dailyWorkout.setOnClickListener(this);
-        theCage.setOnClickListener(this);
-        activities.setOnClickListener(this);
-        intrmural.setOnClickListener(this);
+        _dailyWorkout.setOnClickListener(this);
+        _theCage.setOnClickListener(this);
+        _activities.setOnClickListener(this);
+        _intrmural.setOnClickListener(this);
+        _quiteTab.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivdaily_workout:
-                dailyWorkout.setBackgroundColor(getResources().getColor(R.color.Physical_Dark));
-                theCage.setBackgroundColor(getResources().getColor(R.color.Physical_light));
-                activities.setBackgroundColor(getResources().getColor(R.color.Physical_light));
-                intrmural.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _dailyWorkout.setBackgroundColor(getResources().getColor(R.color.Physical_Dark));
+                _theCage.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _activities.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _intrmural.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _quiteTab.setBackgroundColor(getResources().getColor(R.color.Physical_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_physical,new Daily_Workout_Fragment(),null).commit();
                 break;
 
             case R.id.ivthe_cage:
-                dailyWorkout.setBackgroundColor(getResources().getColor(R.color.Physical_light));
-                theCage.setBackgroundColor(getResources().getColor(R.color.Physical_Dark));
-                activities.setBackgroundColor(getResources().getColor(R.color.Physical_light));
-                intrmural.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _dailyWorkout.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _theCage.setBackgroundColor(getResources().getColor(R.color.Physical_Dark));
+                _activities.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _intrmural.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _quiteTab.setBackgroundColor(getResources().getColor(R.color.Physical_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_physical,new TheCage_Fragment(),null).commit();
                 break;
 
             case R.id.ivactivities:
-                dailyWorkout.setBackgroundColor(getResources().getColor(R.color.Physical_light));
-                theCage.setBackgroundColor(getResources().getColor(R.color.Physical_light));
-                activities.setBackgroundColor(getResources().getColor(R.color.Physical_Dark));
-                intrmural.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _dailyWorkout.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _theCage.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _activities.setBackgroundColor(getResources().getColor(R.color.Physical_Dark));
+                _intrmural.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _quiteTab.setBackgroundColor(getResources().getColor(R.color.Physical_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_physical,new Activities_Fragment(),null).commit();
                 break;
 
             case R.id.ivintramural:
-                dailyWorkout.setBackgroundColor(getResources().getColor(R.color.Physical_light));
-                theCage.setBackgroundColor(getResources().getColor(R.color.Physical_light));
-                activities.setBackgroundColor(getResources().getColor(R.color.Physical_light));
-                intrmural.setBackgroundColor(getResources().getColor(R.color.Physical_Dark));
+                _dailyWorkout.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _theCage.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _activities.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _intrmural.setBackgroundColor(getResources().getColor(R.color.Physical_Dark));
+                _quiteTab.setBackgroundColor(getResources().getColor(R.color.Physical_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_physical,new Intramural(),null).commit();
+                break;
+
+            case R.id.ivquite_tab:
+                _dailyWorkout.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _theCage.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _activities.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _intrmural.setBackgroundColor(getResources().getColor(R.color.Physical_light));
+                _quiteTab.setBackgroundColor(getResources().getColor(R.color.Physical_Dark));
+                getFragmentManager().beginTransaction().replace(R.id.container_physical, new Quit_Fragment(), null).commit();
                 break;
 
 

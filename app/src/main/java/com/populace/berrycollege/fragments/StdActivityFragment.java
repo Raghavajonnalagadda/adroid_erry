@@ -30,11 +30,12 @@ public class StdActivityFragment extends Fragment {
         pd.setCancelable(false);
         pd.show();
         pd.setCancelable(false);
+            std_activity.getSettings().setJavaScriptEnabled(true);
         std_activity.setWebViewClient(new MyWebViewClient());
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         String std_act = bs.getString(ParseDataManager.TAG_SOCIAL_STD_ACT);
-        std_activity.loadUrl(std_act);
+            std_activity.loadUrl("http://www.berry.edu/stulife/activities/");
     }
     else
     {

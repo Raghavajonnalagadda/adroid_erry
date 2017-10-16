@@ -30,11 +30,13 @@ public class SportsFragment extends Fragment {
         pd.setCancelable(false);
         pd.show();
         pd.setCancelable(false);
+            sports.getSettings().setJavaScriptEnabled(true);
         sports.setWebViewClient(new MyWebViewClient());
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         String sport = bs.getString(ParseDataManager.TAG_SOCIAL_SPORTS);
         sports.loadUrl(sport);
+            //sports.loadUrl("http://www.berryvikings.com/landing/index");
     }
     else
     {

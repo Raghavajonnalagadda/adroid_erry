@@ -36,7 +36,7 @@ public class Bcvs extends Fragment {
             bcvs.setWebViewClient(new MyWebViewClient());
             bs = new BerrySession(this.getActivity());
             SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
-            // String bcv = bs.getString(ParseDataManager.TAG_CHAR_BCV);
+            //  String bcv = bs.getString(ParseDataManager.TAG_CHAR_BCV);
             String bcv = "http://www.berry.edu/service/";
             bcvs.loadUrl(bcv);
         }

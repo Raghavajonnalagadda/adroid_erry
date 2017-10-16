@@ -2,11 +2,11 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:weightSum="1"
+    android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
+    android:weightSum="1"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,17 +21,17 @@
                 android:id="@+id/emotional_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/background__emotional"
-                android:scaleType="fitXY"
                 android:layout_marginBottom="32dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/background__emotional"
                 />
 
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/emotions_icon1"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:src="@drawable/emotions_icon1"
                 />
         </RelativeLayout>
     </LinearLayout>
@@ -55,50 +55,114 @@
         >
 
 
-        <ImageView
-            android:id="@+id/ivemotions"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/emotional_1"
-            android:layout_weight="1"
-            android:background="@color/Emotional_dark"
-            android:padding="8dp"
-
-            />
-
-
-        <ImageView
+        <LinearLayout
             android:id="@+id/ivresorces"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/emotional_2"
             android:layout_weight="1"
             android:background="@color/Emotional_light"
-            android:padding="8dp"
-            />
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/emotional_2image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Resources"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
 
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/ivappointments"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/appointments"
             android:layout_weight="1"
             android:background="@color/Emotional_light"
-            android:padding="8dp"
-            />
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
 
-        <ImageView
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/emotional_3image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Appointments"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/ivgeneral_info"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/gen_info"
             android:layout_weight="1"
             android:background="@color/Emotional_light"
-            android:padding="8dp"
-            />
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
 
+            <ImageView
 
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/emotionalimage_3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="General Info"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ivemotions"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/Emotional_light"
+            android:orientation="vertical"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/emotionalimage_4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Residence Life"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

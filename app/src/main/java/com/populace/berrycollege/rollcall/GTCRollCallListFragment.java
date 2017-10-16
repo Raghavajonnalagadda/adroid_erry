@@ -96,10 +96,8 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class GTCRollCallListFragment extends ListFragment {
 
-	int page;
-	ItemsAdapter adapter;
-	Button btnMore ;
-	public int total_counts=0;
+    /* Any number for uniquely distinguish your request */
+    public static final int WEBVIEW_REQUEST_CODE = 100;
 //	Twitter Data
 	/* Shared preference keys */
 	private static final String PREF_NAME = "sample_twitter_pref";
@@ -107,66 +105,64 @@ public class GTCRollCallListFragment extends ListFragment {
 	private static final String PREF_KEY_OAUTH_SECRET = "oauth_token_secret";
 	private static final String PREF_KEY_TWITTER_LOGIN = "is_twitter_loggedin";
 	private static final String PREF_USER_NAME = "twitter_user_name";
-	String colors[] = new String[] {"Share on Facebook", "Share on Twitter", "Mark user as abusing", "Mark as inappropriete", "Block this user"};
-	/* Any number for uniquely distinguish your request */
-	public static final int WEBVIEW_REQUEST_CODE = 100;
-
-	private ProgressDialog pDialog;
-
-	private static Twitter twitter;
+    /**
+     * The serialization (saved instance state) Bundle key representing the
+     * activated item position. Only used on tablets.
+     */
+    private static final String STATE_ACTIVATED_POSITION = "activated_position";
+    private static Twitter twitter;
 	private static RequestToken requestToken;
-
 	private static SharedPreferences mSharedPreferences;
-	private String consumerKey = null;
+    /**
+     * A dummy implementation of the {@link Callbacks} interface that does
+     * nothing. Used only when this fragment is not attached to an activity.
+     */
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+        @Override
+        public void onItemSelected(String id) {
+        }
+    };
+    public int total_counts = 0;
+    int page;
+    ItemsAdapter adapter;
+    Button btnMore;
+    String colors[] = new String[]{"Share on Facebook", "Share on Twitter", "Delete this photo", "Mark as inappropriete", "Block this user"};
+    Bitmap twitter_pic = null;
+    JSONObject profileImages = new JSONObject();
+    JSONObject mainImages = new JSONObject();
+    JSONObject users = new JSONObject();
+    JSONObject pusers = new JSONObject();
+    private ProgressDialog pDialog;
+    private String consumerKey = null;
 	private String consumerSecret = null;
 	private String callbackUrl = null;
 	private String oAuthVerifier = null;
-	Bitmap twitter_pic=null;
-	/**
-	 * The serialization (saved instance state) Bundle key representing the
-	 * activated item position. Only used on tablets.
-	 */
-	private static final String STATE_ACTIVATED_POSITION = "activated_position";
-
 	/**
 	 * The fragment's current callback object, which is notified of list item
 	 * clicks.
 	 */
 	private Callbacks mCallbacks = sDummyCallbacks;
-
 	/**
 	 * The current activated item position. Only used on tablets.
 	 */
 	private int mActivatedPosition = ListView.INVALID_POSITION;
+    private BroadcastReceiver saveTwitterData = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String message = intent.getStringExtra(oAuthVerifier);
+            Log.d("receiver", "Got message: " + message);
+            saveTwitterData(message);
 
-	/**
-	 * A callback interface that all activities containing this fragment must
-	 * implement. This mechanism allows activities to be notified of item
-	 * selections.
-	 */
-	public interface Callbacks {
-		/**
-		 * Callback for when an item has been selected.
-		 */
-		public void onItemSelected(String id);
-	}
-
-	/**
-	 * A dummy implementation of the {@link Callbacks} interface that does
-	 * nothing. Used only when this fragment is not attached to an activity.
-	 */
-	private static Callbacks sDummyCallbacks = new Callbacks() {
-		@Override
-		public void onItemSelected(String id) {
-		}
-	};
-
+		  }
+    };
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
 	 * fragment (e.g. upon screen orientation changes).
 	 */
 	public GTCRollCallListFragment() {
 	}
+
 	public void loadRollCall(final int page, int pageSize){
 		ParseQuery<GTCPhoto> q = ParseQuery.getQuery(GTCPhoto.class);
 		q.setSkip(page * pageSize);
@@ -210,6 +206,7 @@ public class GTCRollCallListFragment extends ListFragment {
 
 		});
 	}
+
 	public void onResume(){
 		super.onResume();
 		if(ParseDataManager.sharedDataManager(getActivity()).CheckIsConnectedToInternet(getActivity())){
@@ -243,6 +240,7 @@ public class GTCRollCallListFragment extends ListFragment {
 		setListAdapter(adapter);
 		}
 	}
+
 	private TextView noItems(String text) {
 	    TextView emptyView = new TextView(getActivity());
 	    //Make sure you import android.widget.LinearLayout.LayoutParams;
@@ -262,6 +260,7 @@ public class GTCRollCallListFragment extends ListFragment {
 
 	    return emptyView;
 	}
+
 	public void getTotalPhotos()
 	{
 		 ParseQuery<GTCPhoto> query = ParseQuery.getQuery(GTCPhoto.class);
@@ -276,6 +275,7 @@ public class GTCRollCallListFragment extends ListFragment {
 		     }
 		 });
 	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -397,17 +397,320 @@ public class GTCRollCallListFragment extends ListFragment {
 
 		mActivatedPosition = position;
 	}
+
 	public void openRollCallDetail(int pos){
 		GTCPhoto rollcall = (GTCPhoto)adapter.getItem(pos);
 		Intent myIntent = new Intent(getActivity(), GTCRollCallDetailActivity.class);
 		myIntent.putExtra("PHOTO_DICT",rollcall.fields(getActivity(),true,0).toString());
-		startActivityForResult(myIntent,0);
+		startActivityForResult(myIntent, 0);
 
-	}
-	JSONObject profileImages = new JSONObject();
-	JSONObject mainImages = new JSONObject();
-	JSONObject users = new JSONObject();
-	JSONObject pusers = new JSONObject();
+    }
+
+    public void checkinFacbook(final String message, Bitmap logo_bmp) {
+        System.out.println("andy checking data image ");
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Compress image to lower quality scale 1 - 100
+        logo_bmp.compress(CompressFormat.PNG, 100, stream);
+        byte[] image = stream.toByteArray();
+        Bundle params = new Bundle();
+        params.putString("message", message);
+        params.putByteArray("source", image);
+
+		/* make the API call */
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me/photos",
+                params,
+                HttpMethod.POST,
+                new GraphRequest.Callback() {
+
+                    @Override
+                    public void onCompleted(GraphResponse response) {
+                        // TODO Auto-generated method stub
+                        System.out.println("Andy checking error " + response.getError());
+
+                        if (response.getError() == null) {
+
+                            showToastMessage("Photo shared successfully on facebook");
+                        } else {
+//					showAlertSimple("Operation was failed, Please try again");
+                            showToastMessage("Facebook Operation was failed, Please try again");
+
+
+                        }
+                    }
+                }
+        ).executeAsync();
+    }
+
+    public void loginToAskInTwitter() {
+
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("You are not logged into Twitter. Login Now?");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        loginToTwitter();
+
+                        dialog.cancel();
+                    }
+                });
+        builder1.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+
+    }
+
+    private void loginToTwitter() {
+
+        System.out.println("logi  function called ");
+        boolean isLoggedIn = mSharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
+
+        if (!isLoggedIn) {
+            final ConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.setOAuthConsumerKey(consumerKey);
+            builder.setOAuthConsumerSecret(consumerSecret);
+
+            final Configuration configuration = builder.build();
+            final TwitterFactory factory = new TwitterFactory(configuration);
+            twitter = factory.getInstance();
+
+            try {
+                requestToken = twitter.getOAuthRequestToken(callbackUrl);
+
+                /**
+                 *  Loading twitter login page on webview for authorization
+                 *  Once authorized, results are received at onActivityResult
+                 *  */
+                final Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra(WebViewActivity.EXTRA_URL, requestToken.getAuthenticationURL());
+                startActivityForResult(intent, WEBVIEW_REQUEST_CODE);
+
+            } catch (TwitterException e) {
+                System.out.println("logi  function called " + e);
+                e.printStackTrace();
+            }
+        } else {
+
+            System.out.println("logi  function called 2");
+        }
+    }
+
+    private void sharePhotoToFacebook(final String message, Bitmap logo_bmp) {
+
+        System.out.println("Andy checking fucntion called ");
+//        Bitmap image=logo_bmp;
+//        SharePhoto photo = new SharePhoto.Builder()
+//                .setBitmap(image)
+//                .setCaption(message)
+//                .build();
+//
+//        SharePhotoContent content = new SharePhotoContent.Builder()
+//                .addPhoto(photo)
+//                .build();
+//
+//        ShareApi.share(content, null);
+
+        try {
+            SharePhoto photo = new SharePhoto.Builder().setBitmap(logo_bmp).build();
+            SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+            ShareDialog dialog = new ShareDialog(this);
+            if (ShareDialog.canShow(SharePhotoContent.class)) {
+                dialog.show(content);
+            } else {
+                Log.d("Activity", "you cannot share photos :(");
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+
+    }
+
+    @Override
+    public void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(saveTwitterData);
+    }
+
+    public void showToastMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void initTwitterConfigs() {
+        consumerKey = getString(R.string.twitter_consumer_key);
+        consumerSecret = getString(R.string.twitter_consumer_secret);
+        callbackUrl = getString(R.string.twitter_callback);
+        oAuthVerifier = getString(R.string.twitter_oauth_verifier);
+    }
+
+    public boolean isTwiiterLoggedIn() {
+        boolean isLoggedIn = mSharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
+        return isLoggedIn;
+    }
+
+    public void saveTwitterData(String verify) {
+        System.out.println("Andy twitter data saved ");
+        try {
+            twitter4j.auth.AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, verify);
+
+            long userID = accessToken.getUserId();
+            final User user = twitter.showUser(userID);
+            String username = user.getName();
+
+            saveTwitterInfo(accessToken);
+            showToastMessage("logged in twitter successfully");
+//	UpdateTwitterStatus save = new UpdateTwitterStatus(GlobalClass.global_caption);
+//	save.execute();
+        } catch (Exception e) {
+            System.out.println("Andy twitter data saved " + e);
+            Log.e("Twitter Login Failed", e.getMessage());
+        }
+
+
+    }
+
+    private void saveTwitterInfo(twitter4j.auth.AccessToken accessToken) {
+
+        long userID = accessToken.getUserId();
+
+        User user;
+        try {
+            user = twitter.showUser(userID);
+
+            String username = user.getName();
+
+		/* Storing oAuth tokens to shared preferences */
+            Editor e = mSharedPreferences.edit();
+            e.putString(PREF_KEY_OAUTH_TOKEN, accessToken.getToken());
+            e.putString(PREF_KEY_OAUTH_SECRET, accessToken.getTokenSecret());
+            e.putBoolean(PREF_KEY_TWITTER_LOGIN, true);
+            e.putString(PREF_USER_NAME, username);
+            e.commit();
+
+        } catch (TwitterException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    private void deletePost(GTCPhoto photo) {
+        try {
+
+
+            ParseQuery<GTCPhoto> q = ParseQuery.getQuery(GTCPhoto.class);
+            q.whereEqualTo("objectId", photo.getObjectId());
+            q.find().get(0).delete();
+            ((ItemsAdapter) getListAdapter()).deleteItem(photo);
+            //////////////////////////1609
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    public void postFlagsInformation(GTCPhoto photo, String request_type, final boolean inapropriate, boolean abusing, boolean block) {
+
+
+        if (CheckIsConnectedToInternet(getActivity())) {
+            final ParseObject pObject = ParseObject.create("Flag");
+            if (!inapropriate) {
+                pObject.put("abusive_user", photo.getUser());
+
+            } else {
+                pObject.put("photo", photo);
+            }
+
+            pObject.put("RequestType", request_type);
+            final ProgressDialog dialog = ParseDataManager.showProgress(getActivity(), "Please wait", "Submitting your feedback...");
+            pObject.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException ex) {
+                    if (ex == null) {
+
+                        if (inapropriate) {
+                            showAlertSimple("Thanks for submitting your feedback. Our team will review it and unpublish it within next 24 hours if found abusive or inappropriate");
+                        } else {
+                            showAlertSimple("Thanks for submitting your feedback. Our team will review it and block this user within next 24 hours if found abusive or inappropriate");
+                        }
+
+                    } else {
+                        System.out.println("Andy erros check " + ex);
+                    }
+                    dialog.dismiss();
+                }
+            });
+
+        } else {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+            builder1.setMessage("Sorry, Your device is not connected to internet");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
+    }
+
+    public boolean CheckIsConnectedToInternet(Context _context) {
+        ConnectivityManager connectivity = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+
+        }
+        return false;
+    }
+
+    public void showAlertSimple(final String message) {
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+        builder1.setMessage("" + message + "");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+
+    /**
+     * A callback interface that all activities containing this fragment must
+     * implement. This mechanism allows activities to be notified of item
+     * selections.
+     */
+    public interface Callbacks {
+        /**
+         * Callback for when an item has been selected.
+         */
+        void onItemSelected(String id);
+    }
+
 	@SuppressWarnings("hiding")
 	private class ItemsAdapter extends BaseAdapter {
 		ArrayList<GTCPhoto> items;
@@ -435,9 +738,15 @@ public class GTCRollCallListFragment extends ListFragment {
 				return rCAt.compareTo(lCAt);
 			}
 
-		   });
-		   context = ctx;
-		  }
+           });
+            context = ctx;
+        }
+
+        public void deleteItem(GTCPhoto itemPhoto) {
+            items.remove(itemPhoto);
+            notifyDataSetChanged();
+        }
+
 		public void addItems(ArrayList<GTCPhoto> items){
 			this.items.addAll(items);
 			 Collections.sort(this.items, new Comparator<GTCPhoto>(){
@@ -538,10 +847,11 @@ public class GTCRollCallListFragment extends ListFragment {
 														loginToAskInTwitter();
 
 													}
-													break;
-												case 2:
-													postFlagsInformation(photo, "Abusive user", false, true, false);
-													break;
+                                                    break;
+                                                    case 2:
+                                                        deletePost(photo);
+                                                        //	postFlagsInformation(photo, "Abusive user", false, true, false);
+                                                        break;
 												case 3:
 													postFlagsInformation(photo, "Inappropriate Photo", true, false, false);
 													break;
@@ -815,10 +1125,10 @@ public class GTCRollCallListFragment extends ListFragment {
 											}
 										} catch (JSONException e1) {
 											e1.printStackTrace();
-										}
+                                        }
 
-									}else{
-									((GTCUser)user.get("profile")).fetchInBackground(new GetCallback<GTCUser>(){
+                                    } else if(user.get("profile") != null){
+                                        ((GTCUser)user.get("profile")).fetchInBackground(new GetCallback<GTCUser>(){
 
 										@Override
 										public void done(final GTCUser u,
@@ -1028,10 +1338,10 @@ public class GTCRollCallListFragment extends ListFragment {
 
 					@Override
 					public void done(List<ParseObject> arg0, ParseException arg1) {
-						if(arg0 != null){
-							if(arg0.size() > 0){
-								final ParseObject obj = (ParseObject)arg0.get(0);
-								btnLike.setTag(obj);
+						if(arg0 != null) {
+                            if (arg0.size() > 0) {
+                                final ParseObject obj = arg0.get(0);
+                                btnLike.setTag(obj);
 								if(obj.getInt("likeStatus") == 1){
 									btnLike.setBackgroundResource(R.drawable.liked_icon);
 									btnLike.setTextColor(Color.parseColor("#6B8FBF"));
@@ -1060,8 +1370,8 @@ public class GTCRollCallListFragment extends ListFragment {
 							@Override
 							public void done(List<ParseObject> arg0, ParseException arg1) {
 								if(arg0 != null){
-									if(arg0.size() > 0){
-										final ParseObject obj = (ParseObject)arg0.get(0);
+                                    if (arg0.size() > 0) {
+                                        final ParseObject obj = arg0.get(0);
 
 										if(obj.getInt("likeStatus") == 1){
 
@@ -1300,215 +1610,6 @@ public class GTCRollCallListFragment extends ListFragment {
 		  }
 		 }
 
-	public void checkinFacbook(final String message,Bitmap logo_bmp)
-	{
-		System.out.println("andy checking data image ");
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		// Compress image to lower quality scale 1 - 100
-	    logo_bmp.compress(CompressFormat.PNG, 100, stream);
-		byte[] image = stream.toByteArray();
-		Bundle params = new Bundle();
-		params.putString("message", message);
-		params.putByteArray("source", image);
-
-		/* make the API call */
-		new GraphRequest(
-		    AccessToken.getCurrentAccessToken(),
-		    "/me/photos",
-		    params,
-		    HttpMethod.POST,
-		    new GraphRequest.Callback() {
-
-				@Override
-				public void onCompleted(GraphResponse response) {
-					// TODO Auto-generated method stub
-				System.out.println("Andy checking error "+response.getError());
-
-				if(response.getError()==null)
-				{
-
-					showToastMessage("Photo shared successfully on facebook");
-				}
-				else
-				{
-//					showAlertSimple("Operation was failed, Please try again");
-					showToastMessage("Facebook Operation was failed, Please try again");
-
-
-				}
-				}
-		    }
-		).executeAsync();
-}
-	public void loginToAskInTwitter()
-	{
-
-
-		AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-        builder1.setMessage("You are not logged into Twitter. Login Now?");
-        builder1.setCancelable(true);
-        builder1.setPositiveButton("Yes",
-                new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-
-				loginToTwitter();
-
-            	dialog.cancel();
-            }
-        });
-        builder1.setNegativeButton("No",
-                new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-
-
-	}
-	private void loginToTwitter() {
-
-		System.out.println("logi  function called ");
-		boolean isLoggedIn = mSharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
-
-		if (!isLoggedIn) {
-			final ConfigurationBuilder builder = new ConfigurationBuilder();
-			builder.setOAuthConsumerKey(consumerKey);
-			builder.setOAuthConsumerSecret(consumerSecret);
-
-			final Configuration configuration = builder.build();
-			final TwitterFactory factory = new TwitterFactory(configuration);
-			twitter = factory.getInstance();
-
-			try {
-				requestToken = twitter.getOAuthRequestToken(callbackUrl);
-
-				/**
-				 *  Loading twitter login page on webview for authorization
-				 *  Once authorized, results are received at onActivityResult
-				 *  */
-				final Intent intent = new Intent(getActivity(), WebViewActivity.class);
-				intent.putExtra(WebViewActivity.EXTRA_URL, requestToken.getAuthenticationURL());
-				startActivityForResult(intent, WEBVIEW_REQUEST_CODE);
-
-			} catch (TwitterException e) {
-				System.out.println("logi  function called "+e);
-				e.printStackTrace();
-			}
-		} else {
-
-			System.out.println("logi  function called 2");
-		}
-	}
-	private void sharePhotoToFacebook(final String message,Bitmap logo_bmp){
-
-		System.out.println("Andy checking fucntion called ");
-//        Bitmap image=logo_bmp;
-//        SharePhoto photo = new SharePhoto.Builder()
-//                .setBitmap(image)
-//                .setCaption(message)
-//                .build();
-//
-//        SharePhotoContent content = new SharePhotoContent.Builder()
-//                .addPhoto(photo)
-//                .build();
-//
-//        ShareApi.share(content, null);
-
-		try {
-		     SharePhoto photo = new SharePhoto.Builder().setBitmap(logo_bmp).build();
-		        SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
-		        ShareDialog dialog = new ShareDialog(this);
-		        if (dialog.canShow(SharePhotoContent.class)){
-		            dialog.show(content);
-		        }
-		        else{
-		            Log.d("Activity", "you cannot share photos :(");
-		        }
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-
-    }
-	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(saveTwitterData);
-	}
-	public void showToastMessage(String message)
-	{
-		Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-	}
-	private void initTwitterConfigs() {
-		consumerKey = getString(R.string.twitter_consumer_key);
-		consumerSecret = getString(R.string.twitter_consumer_secret);
-		callbackUrl = getString(R.string.twitter_callback);
-		oAuthVerifier = getString(R.string.twitter_oauth_verifier);
-	}
-
-	public boolean isTwiiterLoggedIn()
-	{
-		boolean isLoggedIn = mSharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
-		return isLoggedIn ;
-	}
-	private BroadcastReceiver saveTwitterData = new BroadcastReceiver() {
-		  @Override
-		  public void onReceive(Context context, Intent intent) {
-		    // Get extra data included in the Intent
-		    String message = intent.getStringExtra(oAuthVerifier);
-		    Log.d("receiver", "Got message: " + message);
-		    saveTwitterData(message);
-
-		  }
-		};
-public void saveTwitterData(String verify)
-{
-System.out.println("Andy twitter data saved ");
-try {
-	twitter4j.auth.AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, verify);
-
-	long userID = accessToken.getUserId();
-	final User user = twitter.showUser(userID);
-	String username = user.getName();
-
-	saveTwitterInfo(accessToken);
-	showToastMessage("logged in twitter successfully");
-//	UpdateTwitterStatus save = new UpdateTwitterStatus(GlobalClass.global_caption);
-//	save.execute();
-} catch (Exception e) {
-	System.out.println("Andy twitter data saved "+e);
-	Log.e("Twitter Login Failed", e.getMessage());
-}
-
-
-}
-private void saveTwitterInfo(twitter4j.auth.AccessToken accessToken) {
-
-	long userID = accessToken.getUserId();
-
-	User user;
-	try {
-		user = twitter.showUser(userID);
-
-		String username = user.getName();
-
-		/* Storing oAuth tokens to shared preferences */
-		Editor e = mSharedPreferences.edit();
-		e.putString(PREF_KEY_OAUTH_TOKEN, accessToken.getToken());
-		e.putString(PREF_KEY_OAUTH_SECRET, accessToken.getTokenSecret());
-		e.putBoolean(PREF_KEY_TWITTER_LOGIN, true);
-		e.putString(PREF_USER_NAME, username);
-		e.commit();
-
-	} catch (TwitterException e1) {
-		e1.printStackTrace();
-	}
-}
-
 class UpdateTwitterStatus extends AsyncTask<String, String, Void> {
 	 String caption;
 
@@ -1590,99 +1691,18 @@ class UpdateTwitterStatus extends AsyncTask<String, String, Void> {
 
 }
 
-public void postFlagsInformation(GTCPhoto photo,String request_type,final boolean inapropriate,boolean abusing,boolean block)
-{
+class AlertListAdapter extends ArrayAdapter<String> {
+    String items[];
+    ViewHolder holder;
+    Drawable icon;
 
-
-	if(CheckIsConnectedToInternet(getActivity()))
-    {
-		   final ParseObject pObject =ParseObject.create("Flag");
-		   if(!inapropriate)
-		   {
-			   pObject.put("abusive_user", photo.getUser());
-
-		   }
-		   else
-		   {
-			   pObject.put("photo", photo);
-		   }
-
-       		pObject.put("RequestType",request_type);
-       		  final ProgressDialog dialog = ParseDataManager.showProgress(getActivity(), "Please wait", "Submitting your feedback...");
-       		  pObject.saveInBackground(new SaveCallback () {
-       			   @Override
-       			   public void done(ParseException ex) {
-       			    if (ex == null) {
-
-       			    	if(inapropriate)
-       			    	{
-       			    		showAlertSimple("Thanks for submitting your feedback. Our team will review it and unpublish it within next 24 hours if found abusive or inappropriate");
-       			    	}
-       			    	else
-       			    	{
-       			    		showAlertSimple("Thanks for submitting your feedback. Our team will review it and block this user within next 24 hours if found abusive or inappropriate");
-       			    	}
-
-       			    } else {
-       			    	System.out.println("Andy erros check "+ex);
-       			    }
-       			    dialog.dismiss();
-       			  }
-       			});
-
-    }
-	else
-	{
-		AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-        builder1.setMessage("Sorry, Your device is not connected to internet");
-        builder1.setCancelable(true);
-        builder1.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-	}
-}
-public boolean CheckIsConnectedToInternet(Context _context) {
-	   ConnectivityManager connectivity = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
-	   if (connectivity != null) {
-	     NetworkInfo[] info = connectivity.getAllNetworkInfo();
-	     if (info != null)
-	       for (int i = 0; i < info.length; i++)
-	         if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-	           return true;
-	         }
-
-	   }
-	   return false;
-	 }
-
-
-
-class AlertListAdapter extends ArrayAdapter<String>
-{
-String items[];
-	public AlertListAdapter(Context context, int resource,
+    public AlertListAdapter(Context context, int resource,
 			int textViewResourceId, String[] objects) {
 
 		super(context, resource, textViewResourceId, objects);
 		// TODO Auto-generated constructor stub
 		items=objects;
 	}
-
-
-
-    ViewHolder holder;
-    Drawable icon;
-
-    class ViewHolder {
-        ImageView icon;
-        TextView title;
-    }
 
     public View getView(int position, View convertView,
             ViewGroup parent) {
@@ -1704,35 +1724,20 @@ String items[];
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(position<2)
-        {
-        	holder.title.setTextColor(getActivity().getResources().getColor(R.color.white_color));
-        }
-        else
-        {
-        	holder.title.setTextColor(getActivity().getResources().getColor(R.color.red_color));
+        if (position < 2) {
+            holder.title.setTextColor(getActivity().getResources().getColor(R.color.actionbar_background));
+        } else {
+            holder.title.setTextColor(getActivity().getResources().getColor(R.color.actionbar_background));
         }
         holder.title.setText(items[position]);
 
         return convertView;
     }
 
+    class ViewHolder {
+        ImageView icon;
+        TextView title;
+    }
+
 	}
-public void showAlertSimple(final String  message)
-{
-
-	AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-    builder1.setMessage(""+message+"");
-    builder1.setCancelable(true);
-    builder1.setPositiveButton("OK",
-            new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int id) {
-
-            dialog.cancel();
-        }
-    });
-
-    AlertDialog alert11 = builder1.create();
-    alert11.show();
-}
 }

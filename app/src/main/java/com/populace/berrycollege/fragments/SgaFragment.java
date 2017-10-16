@@ -30,6 +30,7 @@ public class SgaFragment extends Fragment {
         pd.setCancelable(false);
         pd.show();
         pd.setCancelable(false);
+            sga.getSettings().setJavaScriptEnabled(true);
         sga.setWebViewClient(new MyWebViewClient());
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);

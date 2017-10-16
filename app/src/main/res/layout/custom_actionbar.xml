@@ -11,24 +11,13 @@
     android:id="@+id/navicon"
     android:layout_width="20dp"
     android:layout_height="18dp"
-    android:src="@drawable/navicon"
-   android:layout_gravity="center"
+       android:layout_gravity="center"
+       android:src="@drawable/navicon"
 
 
 />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textviewactivityname"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:text="@string/action_bar"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:gravity="center"
-        />
+
     </LinearLayout>
 

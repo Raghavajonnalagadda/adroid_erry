@@ -3,129 +3,246 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\Ashu Verma\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.5\442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375\universal-image-loader-1.9.5.jar"
-        jumboMode="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\96082020ccc3a7243dca50f1d03e0b92e6a68554\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="23.0.2"
-        sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\universal-image-loader-1.9.5_8598c214e62a76742581176ba3f887d06a583354\classes.dex" />
+        revision="25.0.0"
+        sha1="4ef8ab5fee042023018249474bc93bd4b2b9c17e">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6dc3aee8ba3be4251703265b9653af71d79c9031\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.0.0\jars\classes.jar"
-        jumboMode="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\ce697919a568b954d0a47b9c7675d78371b59583\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="23.0.2"
+        revision="25.0.0"
+        sha1="81aa0e8e77d948204aa6754019c6f3c04dd922e3">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4418d7cc2eb3a0c31b59f46694cb12ea3514f0c6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\8a9043f02e201f26e10ce9a6e467b13e3a0efc35\output\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_3e92ecbbab74456e78695cd0c91a6d20d0f7662a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\library\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="777e5a424213acc0b981b8b10fc4b67b1600a5cd">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\4\classes_fb3c57a9972e404f593020e362f848525605267d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\fb8cdab0730af9af3bd110d8dcf74bb4fdc28f40\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d625d87fd59e5539422f041293df79cd705e6874\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\8a9043f02e201f26e10ce9a6e467b13e3a0efc35\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1a6d7b5ec618494ddce5060e2893f5630ea462da\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\049dfcb31ace475dc8df2b70a6f9f68914f5dc65\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_dff538108deac5b9a83b7a298d6290cbea62a55b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\library-2.4.0_2345c260470f33443512b01826892bdc2c3f60ac\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\ab601c9d6b305242c72e4472213ad0a3a81525ac\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4a2c63ab232bd2c7b750e74794015c8b09aca351">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8662174b5602b3935bcf3ad4c43c6532ded7ed9a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_fc18a0fdc80391aaf9a93e629f1a6f03cf6a9cf4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\f8788bffb9b09805a8385946e7e1b910f882572e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="379d1834afa3c08f43be23a23b103053537b65b5">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9845f7fcd5e8487967f775240af99a37055e4f17\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\21c0e6d2de45d865c3114ced01667ba680723385\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1941832901fc4e7a93300b53762e9f65d7650b99">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a7b24b8eeb8bfd0da320dc90b5991ac0a04c2380\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\98dc778fec4a106a7e560234b96bad988c1c0ffa\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0dc8ab07eeceda5e99b305c8069765056b6e5c9d">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e48124d33af8e545200c09c41b8ee712cd3f2446\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\1ccca6372d9ac9ed9bda39fb5f1566ac38089979\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_be511aa54b0c2148e897813fe5b45a465f0839b4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\244f971af80e2bcc8b480362467b8def7b941218\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4caf75b2cfb7ec6e80a57d0ee64fc102ad3578b8">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d3fc4694f713011c2494fe3b8bcb8c9724a78f55\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\77d349b11ff71f19517333797aa912f6271e2f82\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="255441a88fb3f8e2395501397c8928b693a4dfac">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_610e4a48d9b41406c0b444291383112f846f7804\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.gradle\caches\modules-2\files-2.1\org.twitter4j\twitter4j-core\4.0.2\6555e7c45f5db0006823731b2ddb536d481e11d1\twitter4j-core-4.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6555e7c45f5db0006823731b2ddb536d481e11d1">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\twitter4j-core-4.0.2_4eee77801616391ae8ad678f5f75f70224b585dc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\44232424a7c497806fa1f34420350c1e3936378d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="76d7e619a84e1c57ad7b153ba84b1213f8ff9ef1">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ebbc47b447a14e5b54ba0f44cfe906d2fb3b242b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\856ec15d8fee5384b10fdf63d94988bf3b2d0b05\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="42df48c7305b08b14fa0e84561091b0c24d70d26">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9757328549ca8999d631281977ca50a0c5e8b3da\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\eb3afe953a2e1894d944bc057fcc31065d027279\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="cc178928721f3222b3b06bdfbd9497378ccb9792">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9564f00ec1eecc30b46fa5c4bb621ae617e2eacb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\8e82611cdf804680ea66cce1fcaed0a9ebe82757\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_7705cf6374f95406c22845d63be8e364aead5961\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\libs\App42_ANDROID_SDK_3.9.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0a61000cebd5e7638d0db1d5cccc4f10f837f0f6">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\2\App42_ANDROID_SDK_3.9.2_8255be5413b0c61005af6fa526cb48837875f6f6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\2ca391e0fc4cf90be2d850cdd609d1345bb24923\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea4b54dcbfe5ac05efb0a314105f07258118d3a7">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f364835b0f75e69fade2639631859c4775eb4229\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\5b61f62b66f091188e71b1c22e86ae272bf85fc0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
         sha1="0f254ec13d6671680482d2218f01ecf14dfa93e6">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.0.0_296056d3be5ea907859aed6c783921036d4792bf\classes.dex" />
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_85edfddaf0108542fb0574f887e251675294f238\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
+        jar="C:\Users\Populace PC 1\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.5\442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375\universal-image-loader-1.9.5.jar"
+        jumboMode="false"
         optimize="true"
-        revision="23.0.2"
-        sha1="185c30850bfc002bd18efdc3fd9378ead08b98a1">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_0a5e4f1d21e77ee8e01fae71686a601afcef1d6f\classes.dex" />
+        revision="25.0.0"
+        sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\universal-image-loader-1.9.5_8d9084e4f04f2fad753c991dd1a09c705b3d72c2\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\libs\bolts-android-1.1.2.jar"
-        jumboMode="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\334fbe62daee1d70770c807ae5692f928e2db0d9\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="23.0.2"
-        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\2\bolts-android-1.1.2_c6ef36a60aae494b8012bf936d6a57076969428f\classes.dex" />
+        revision="25.0.0"
+        sha1="6f65c144283b31b4b9a70e6e7aa4c4a1c897d4b8">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0308c021dc477868d00f57b640303cea71816b00\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\jars\classes.jar"
-        jumboMode="true"
+        jar="C:\Users\Populace PC 1\.android\build-cache\c1fd33bc0b5b9bf4b0cc584d8ec4246687ee3aba\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="23.0.2"
-        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-multidex-1.0.1_ecfc25ce08a34186e2cd13ba3f171c09b415f05d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="e9b1dffef88cc53834a301ba5fc19d13b1042830">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_264c4ecf081a1270e8b359321973ecba4d27555c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\libs\Parse-1.5.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="3d645417e7780d44f32e29a3ec6b729b75aef26c">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\2\Parse-1.5.1_4d8acd261a9e4f530d54095f78ae4dfc71707e8a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.1.1_f5e560dc9940c15e9cf9d120e869a94f71138d52\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.1.1_78b8f697b8d93cf014bef8aa9d0c3977cc60a806\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.1.1_1278dde317dc037f39f924d992110ecfb740095c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\libs\twitter4j-core-4.0.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="381cf31e9200c2902782f17248d2af18e2ab4c56">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\2\twitter4j-core-4.0.2_4b77108f3568e786ec0304edd07fff8d8f8b615d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.1.1_d3bfb55fd5b37f4c2949790e5f91b50c40ac268f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.1_6ededcc9b39f46fbcdd6efbd1a4d51bb6afd2a15\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\BERRYCOLLEGE\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="E:\BERRYCOLLEGE\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.1_45105d3e6775585f7db44bf212b54ea2814f8565\classes.dex" />
+        revision="25.0.0"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="C:\Users\Populace PC 1\Videos\Real projects\berrycollege\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c5a1bafd144ce3c313a5b2df97bfadd784b6203d\classes.dex" />
     </item>
 
 </items>

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -41,7 +42,6 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.populace.berrycollege.R;
 import com.populace.berrycollege.activities.GlobalClass;
-import com.populace.berrycollege.activities.HealthAndWellness;
 import com.populace.berrycollege.activities.LoginScreen;
 import com.populace.berrycollege.activities.MainActivity;
 import com.populace.berrycollege.managers.BerrySession;
@@ -61,54 +61,167 @@ import soundcloud.android.crop.Crop;
 
 public class MenuFragement extends Fragment implements OnItemSelectedListener,OnClickListener
 {
+    private static final int REQ_CODE_PICK_IMAGE = 100;
+    private final static int PIC_CROP = 2;
+    static float currentDataVersion = 1.0f;
+    private final int TAKE_PICTURE = 1;
     BerrySession bs;
-    private Context context;
     Activity ac;
-    private String year, passWord;
     EditText firstName, lastName, e_mail ,password;
-    Button save, logOut;
+    Button savebtn;
     List<String> categories;
     ImageView user_image;
     Spinner spinner;
     Bitmap	logo_bmp ;
-    TextView healthText,version_info;
+    TextView version_info, userName;
     Fragment menu_fragement;
     LinearLayout refresh;
+    EditText feedbacktxt;
+    ImageView feedback, introVideo, logOut;
+    ImageView feedback_cancle, feedback_submit;
     ImageView fb,twitter,youTube,pintrest,instagram;
-    static float currentDataVersion=1.0f;
+    View _view;
+    Bitmap bitmap;
+    private Context context;
+    private String year, passWord;
+    private Uri imageUri;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.menu_fragment, container, false);
+        _view = inflater.inflate(R.layout.menu_fragment, container, false);
         bs=new BerrySession(this.getActivity());
         context = getActivity();
+        feedbacktxt = (EditText) _view.findViewById(R.id.feedbackText);
+        userName = (TextView) _view.findViewById(R.id.userName);
+        feedback_cancle = (ImageView) _view.findViewById(R.id.cancle);
+        feedback_submit = (ImageView) _view.findViewById(R.id.submit);
         menu_fragement=this;
         ac=getActivity();
-        firstName = (EditText) v.findViewById(R.id.first_name);
-        lastName = (EditText) v.findViewById(R.id.last_name);
-        e_mail = (EditText) v.findViewById(R.id.e_mail);
-        user_image = (ImageView) v.findViewById(R.id.ivuser_image);
-        spinner = (Spinner) v.findViewById(R.id.spinner1);
-        password = (EditText) v.findViewById(R.id.password);
-        version_info= (TextView)v.findViewById(R.id.version_info);
-        save = (Button) v.findViewById(R.id.save);
-        healthText= (TextView)v.findViewById(R.id.drawer_health_text);
-        fb= (ImageView)v.findViewById(R.id.ivfacebook);
-        twitter= (ImageView)v.findViewById(R.id.ivtwitter);
-        youTube= (ImageView)v.findViewById(R.id.ivyoutube);
-        pintrest= (ImageView)v.findViewById(R.id.ivpinterest);
-        instagram= (ImageView)v.findViewById(R.id.ivinstagram);
-        logOut = (Button) v.findViewById(R.id.logout);
-        refresh = (LinearLayout) v.findViewById(R.id.layout_refresh);
+        firstName = (EditText) _view.findViewById(R.id.first_name);
+        lastName = (EditText) _view.findViewById(R.id.last_name);
+        e_mail = (EditText) _view.findViewById(R.id.e_mail);
+        user_image = (ImageView) _view.findViewById(R.id.ivuser_image);
+        spinner = (Spinner) _view.findViewById(R.id.spinner1);
+        password = (EditText) _view.findViewById(R.id.password);
+        version_info = (TextView) _view.findViewById(R.id.version_info);
+        savebtn = (Button) _view.findViewById(R.id.save);
+        // healthText= (TextView)_view.findViewById(R.id.drawer_health_text);
+        fb = (ImageView) _view.findViewById(R.id.ivfacebook);
+        twitter = (ImageView) _view.findViewById(R.id.ivtwitter);
+        youTube = (ImageView) _view.findViewById(R.id.ivyoutube);
+        pintrest = (ImageView) _view.findViewById(R.id.ivpinterest);
+        instagram = (ImageView) _view.findViewById(R.id.ivinstagram);
+        logOut = (ImageView) _view.findViewById(R.id.logout);
+        refresh = (LinearLayout) _view.findViewById(R.id.layout_refresh);
         loadVersion();
         //   version_info.setText("VER " + loadDataVersion());
         version_info.setText("VER "+currentDataVersion);
+        final SharedPreferences settings = context.getSharedPreferences(context.getPackageName(), 0);
+        settings.edit().putBoolean("dataSaved", true).commit();
 
+        feedback = (ImageView) _view.findViewById(R.id.appFeedback);
+        introVideo = (ImageView) _view.findViewById(R.id.introVideo);
+        if (settings.getBoolean("dataSaved", false)) {
+            feedback.setVisibility(View.VISIBLE);
+            introVideo.setVisibility(View.VISIBLE);
+            _view.findViewById(R.id.userFieldsLayout).setVisibility(View.GONE);
+        }
 
-        user_image.setOnClickListener(new OnClickListener() {
+        introVideo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                takePhoto();
+                String newVideoPath = "https://cdn.wipster.io/video/video-7cca4352-4573-4ebb-b1e7-68aacd6f64ef_h264_720.mp4";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(newVideoPath));
+                intent.setDataAndType(Uri.parse(newVideoPath), "video/mp4");
+                startActivity(intent);
+                // Intent intent = new Intent(context, WebViewActivity.class);
+                //startActivity(intent);
+            }
+        });
+
+        feedback.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _view.findViewById(R.id.feedbacklayout).setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        feedback_cancle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                _view.findViewById(R.id.feedbacklayout).setVisibility(View.GONE);
+
+            }
+        });
+
+        feedback_submit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ParseObject parseObject = ParseObject.create("User_Feedback");
+                parseObject.add("Feedback", feedbacktxt.getText().toString());
+                // parseObject.add("User_Name",firstName.getText().toString()+lastName.getText().toString());
+                parseObject.put("Feedback", feedbacktxt.getText().toString());
+                parseObject.put("Email", ParseUser.getCurrentUser().getEmail());
+                parseObject.put("firstname", firstName.getText().toString());
+                parseObject.put("lastname", lastName.getText().toString());
+                parseObject.put("User_Name", firstName.getText().toString() + lastName.getText().toString());
+
+
+                parseObject.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+
+                        if (e == null) { //success condition
+                            _view.findViewById(R.id.feedbacklayout).setVisibility(View.GONE);
+                            AlertDialog ad = new AlertDialog.Builder(context)
+                                    .create();
+                            ad.setCancelable(false);
+                            ad.setTitle("ThankYou!");
+                            ad.setMessage(" Your Feedback has been successfully submited");
+                            ad.setButton(context.getString(R.string.Ok_text), new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            ad.show();
+                        } else { //Error condition
+                            AlertDialog ad = new AlertDialog.Builder(context)
+                                    .create();
+                            ad.setCancelable(false);
+                            ad.setTitle("Error");
+                            ad.setMessage(" data is not correct");
+                            ad.setButton(context.getString(R.string.Ok_text), new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            ad.show();
+
+                        }
+                    }
+                });
+
+            }
+        });
+        user_image.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (feedback.getVisibility() == View.VISIBLE) {
+                    feedback.setVisibility(View.GONE);
+                    introVideo.setVisibility(View.GONE);
+                    _view.findViewById(R.id.userFieldsLayout).setVisibility(View.VISIBLE);
+
+                } else {
+                    takePhoto();
+                }
+
             }
         });
 
@@ -134,7 +247,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
         spinner.setAdapter(dataAdapter);
         userDetail();
 
-        save.setOnClickListener(new OnClickListener() {
+        savebtn.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -201,14 +314,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
             }
 
         });
-        healthText.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, HealthAndWellness.class);
-                startActivity(intent);
-            }
-        });
 
         refresh.setOnClickListener(new OnClickListener() {
 
@@ -221,7 +327,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
             }
         });
         InitializeListeners();
-        return v;
+        return _view;
 
 
     }
@@ -234,6 +340,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
         ByteArrayOutputStream tstream=null;
         Bitmap thumbBmp =null;
         try {
+            logo_bmp = ((BitmapDrawable) user_image.getDrawable()).getBitmap();
             thumbBmp = PIThemeUtils.ScaleImage(logo_bmp, 87, 87, true);
             tstream = new ByteArrayOutputStream();
             if(thumbBmp != null){
@@ -318,6 +425,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
                             dialog.dismiss();
 
                             if (success) {
+
                                 System.gc();
 //                                        Intent myIntent = new Intent(ac, LoginScreen.class);
 //                                        startActivity(myIntent);
@@ -341,9 +449,6 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
         });
     }
 
-
-
-
     public void userDetail() {
         if (CheckIsConnectedToInternet(getActivity())) {
             final SharedPreferences settings = context.getSharedPreferences(context.getPackageName(), 0);
@@ -359,6 +464,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
                     ParseObject profileObj = null;
                     try {
                         profileObj = ((ParseObject) user.get("profile")).fetchIfNeeded();
+                        userName.setText(profileObj.getString("FirstName") + profileObj.getString("LastName"));
                         String firstname = profileObj.getString("FirstName");
                         String lastname = profileObj.getString("LastName");
                         String email = profileObj.getString("user_email");
@@ -367,7 +473,11 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
                         System.out.println(image_name);
                         String passWord = user.getString("pwd");
                         setData(firstname, lastname, email, passWord, year1);
-
+                        final SharedPreferences settings = context.getSharedPreferences(context.getPackageName(), 0);
+                        settings.edit().putBoolean("dataSaved", true).commit();
+                        _view.findViewById(R.id.userFieldsLayout).setVisibility(View.GONE);
+                        feedback.setVisibility(View.VISIBLE);
+                        introVideo.setVisibility(View.VISIBLE);
 
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -457,7 +567,6 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
 
     }
 
-
     public void getUserCurrentImage()
     {
         SharedPreferences settings = context.getSharedPreferences(context.getPackageName(), 0);
@@ -485,6 +594,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
 
         }
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
@@ -498,7 +608,6 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
     }
-
 
     public void showAlertSimple(final String  message)
     {
@@ -518,6 +627,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
         AlertDialog alert11 = builder1.create();
         alert11.show();
     }
+
     public boolean emailValidator(String email)
     {
         Pattern pattern;
@@ -527,6 +637,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
         matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
     public boolean CheckIsConnectedToInternet(Context _context) {
         ConnectivityManager connectivity = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null) {
@@ -540,16 +651,13 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
         }
         return false;
     }
+
     public void noInternet()
     {
         Toast.makeText(getActivity(), GlobalClass.internet_message,
                 Toast.LENGTH_SHORT).show();
     }
-    Bitmap bitmap;
-    private final int TAKE_PICTURE = 1;
-    private Uri imageUri;
-    private static final int REQ_CODE_PICK_IMAGE = 100;
-    private final static int PIC_CROP = 2;
+
     public void takePhoto() {
 
         File photo = new File(Environment.getExternalStorageDirectory(),"Pic.jpg");
@@ -574,6 +682,7 @@ public class MenuFragement extends Fragment implements OnItemSelectedListener,On
                 bitmap = (Bitmap)obj;
             }else if(obj instanceof Uri){
                 imageUri = (Uri)obj;
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
             }
             switch (requestCode) {
                 case Crop.REQUEST_CROP:

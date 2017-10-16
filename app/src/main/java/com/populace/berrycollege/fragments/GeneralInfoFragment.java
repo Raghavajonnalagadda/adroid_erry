@@ -34,7 +34,10 @@ public class GeneralInfoFragment extends Fragment {
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         String resource = bs.getString(ParseDataManager.TAG__EMOTION_GENERAL_INFO);
-        generalInfo.loadUrl("https://www.berry.edu/stulife/counseling/");
+            //generalInfo.loadUrl("https://www.berry.edu/stulife/counseling/");
+            generalInfo.loadUrl("https://www.berry.edu/stulife/counseling/staff/");
+
+
         }
         else
         {

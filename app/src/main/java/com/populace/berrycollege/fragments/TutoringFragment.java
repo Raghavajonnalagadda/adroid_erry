@@ -32,7 +32,7 @@ public class TutoringFragment extends Fragment {
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         String tutorings = bs.getString(ParseDataManager.TAG_ACAD_TUTORING);
-        tutoring.loadUrl(tutorings);
+            tutoring.loadUrl("http://www.berry.edu/academics/ASC/");
     }
     else
     {

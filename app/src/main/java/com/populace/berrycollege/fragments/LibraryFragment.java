@@ -30,6 +30,7 @@ public class LibraryFragment extends Fragment {
         pd.setCancelable(false);
         pd.show();
         pd.setCancelable(false);
+            library.getSettings().setJavaScriptEnabled(true);
 
         library.setWebViewClient(new MyWebViewClient());
         bs=new BerrySession(this.getActivity());

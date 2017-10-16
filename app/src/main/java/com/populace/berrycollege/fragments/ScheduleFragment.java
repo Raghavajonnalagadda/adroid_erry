@@ -1,4 +1,5 @@
 package com.populace.berrycollege.fragments;
+
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
 import com.populace.berrycollege.R;
 import com.populace.berrycollege.managers.BerrySession;
 import com.populace.berrycollege.managers.ParseDataManager;
@@ -38,7 +40,8 @@ public class ScheduleFragment extends Fragment {
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         String pdf = bs.getString(ParseDataManager.TAG__PHYSICAL_INTRAMURAL_SCHEDULE);
         schedule.getSettings().setJavaScriptEnabled(true);
-        schedule.loadUrl("http://drive.google.com/viewerng/viewer?embedded=true&url=" + pdf);
+            // schedule.loadUrl("http://drive.google.com/viewerng/viewer?embedded=true&url=" + pdf);
+            schedule.loadUrl("http://berry.edu/intramuralsports/");
     }
     else
     {

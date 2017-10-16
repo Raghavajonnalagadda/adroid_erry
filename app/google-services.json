@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "257333558128",
+    "firebase_url": "https://berrycollege-8df1d.firebaseio.com",
+    "project_id": "berrycollege-8df1d",
+    "storage_bucket": "berrycollege-8df1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257333558128:android:7e9ab5aaface8e5d",
+        "android_client_info": {
+          "package_name": "com.populace.berrycollege"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257333558128-oeq5ka79l4la7nbb6rksnd6lh4naif41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnsmN-yo3AdzJS3ZLCrlFKCRopsQzkC4I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

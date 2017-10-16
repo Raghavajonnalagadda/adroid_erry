@@ -33,8 +33,9 @@ public class AppointmentsFragment extends Fragment {
             appointments.setWebViewClient(new MyWebViewClient());
             bs = new BerrySession(this.getActivity());
             SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
-            //String resource = bs.getString(ParseDataManager.TAG__EMOTION_APPOINTMENTS);
-            appointments.loadUrl("http://greatist.com/fitness/resistance-band");
+            String resource = bs.getString(ParseDataManager.TAG__EMOTION_APPOINTMENTS);
+            // appointments.loadUrl("http://greatist.com/fitness/resistance-band");
+            appointments.loadUrl("http://www.berry.edu/stulife/counseling/personal/");
         }
         else{
             ParseDataManager.sharedDataManager(getActivity()).noInternet(getActivity());

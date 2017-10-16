@@ -1,18 +1,14 @@
 package com.populace.berrycollege.activities;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -38,11 +34,12 @@ import java.util.Date;
 
 
 public class Nutrition_Activity extends AppCompatActivity implements OnClickListener {
-    private ImageView diete, menu, caloryCounter, myDiete,back_arrow,frwd_arrow,nutrition;
+    public static String dateStrng;
     TextView date_txt;
     MydietDatabase dbHelper;
     Date date;
-    public static  String dateStrng;
+    private LinearLayout _diet, _menu, _caloryCounter, _myDiete;
+    private ImageView diete, menu, caloryCounter, myDiete, back_arrow, frwd_arrow, nutrition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +54,7 @@ public class Nutrition_Activity extends AppCompatActivity implements OnClickList
         InitializeListeners();
         dbHelper = new MydietDatabase(this);
         dbHelper.createTable();
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.nutrition_light)));
         getFragmentManager().beginTransaction().add(R.id.container_nutrition, new Diets(), null).commit();
         getDate();
 
@@ -113,10 +111,10 @@ public class Nutrition_Activity extends AppCompatActivity implements OnClickList
     }
 
     private void findViewByIds() {
-        diete = (ImageView) findViewById(R.id.ivdiet);
-        menu = (ImageView) findViewById(R.id.ivmenu);
-        caloryCounter = (ImageView) findViewById(R.id.ivcalory_counter);
-        myDiete = (ImageView) findViewById(R.id.ivmydiet);
+        _diet = (LinearLayout) findViewById(R.id.ivdiet);
+        _menu = (LinearLayout) findViewById(R.id.ivmenu);
+        _caloryCounter = (LinearLayout) findViewById(R.id.ivcalory_counter);
+        _myDiete = (LinearLayout) findViewById(R.id.ivmydiet);
         back_arrow=(ImageView)findViewById(R.id.back_btn);
         frwd_arrow=(ImageView)findViewById(R.id.farword_btn);
         date_txt=(TextView)findViewById(R.id.tvdate);
@@ -126,10 +124,10 @@ public class Nutrition_Activity extends AppCompatActivity implements OnClickList
     }
 
     private void InitializeListeners() {
-        diete.setOnClickListener(this);
-        menu.setOnClickListener(this);
-        caloryCounter.setOnClickListener(this);
-        myDiete.setOnClickListener(this);
+        _diet.setOnClickListener(this);
+        _menu.setOnClickListener(this);
+        _caloryCounter.setOnClickListener(this);
+        _myDiete.setOnClickListener(this);
         back_arrow.setOnClickListener(this);
         frwd_arrow.setOnClickListener(this);
 
@@ -143,10 +141,10 @@ public class Nutrition_Activity extends AppCompatActivity implements OnClickList
                 back_arrow.setVisibility(View.INVISIBLE);
                 frwd_arrow.setVisibility(View.INVISIBLE);
                 date_txt.setVisibility(View.INVISIBLE);
-                diete.setBackgroundColor(getResources().getColor(R.color.nutrition_Dark));
-                menu.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
-                caloryCounter.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
-                myDiete.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _diet.setBackgroundColor(getResources().getColor(R.color.nutrition_Dark));
+                _menu.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _caloryCounter.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _myDiete.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_nutrition, new Diets(), null).commit();
                 break;
 
@@ -154,10 +152,10 @@ public class Nutrition_Activity extends AppCompatActivity implements OnClickList
                 back_arrow.setVisibility(View.INVISIBLE);
                 frwd_arrow.setVisibility(View.INVISIBLE);
                 date_txt.setVisibility(View.INVISIBLE);
-                diete.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
-                menu.setBackgroundColor(getResources().getColor(R.color.nutrition_Dark));
-                caloryCounter.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
-                myDiete.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _diet.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _menu.setBackgroundColor(getResources().getColor(R.color.nutrition_Dark));
+                _caloryCounter.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _myDiete.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_nutrition, new Menu(), null).commit();
 
                 break;
@@ -166,10 +164,10 @@ public class Nutrition_Activity extends AppCompatActivity implements OnClickList
                 back_arrow.setVisibility(View.INVISIBLE);
                 frwd_arrow.setVisibility(View.INVISIBLE);
                 date_txt.setVisibility(View.INVISIBLE);
-                diete.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
-                menu.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
-                caloryCounter.setBackgroundColor(getResources().getColor(R.color.nutrition_Dark));
-                myDiete.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _diet.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _menu.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _caloryCounter.setBackgroundColor(getResources().getColor(R.color.nutrition_Dark));
+                _myDiete.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
                 getFragmentManager().beginTransaction().replace(R.id.container_nutrition, new CaloryCounter(), null).commit();
                 break;
 
@@ -177,10 +175,10 @@ public class Nutrition_Activity extends AppCompatActivity implements OnClickList
                 back_arrow.setVisibility(View.VISIBLE);
                 frwd_arrow.setVisibility(View.VISIBLE);
                 date_txt.setVisibility(View.VISIBLE);
-                diete.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
-                menu.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
-                caloryCounter.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
-                myDiete.setBackgroundColor(getResources().getColor(R.color.nutrition_Dark));
+                _diet.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _menu.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _caloryCounter.setBackgroundColor(getResources().getColor(R.color.nutrition_light));
+                _myDiete.setBackgroundColor(getResources().getColor(R.color.nutrition_Dark));
                 getFragmentManager().beginTransaction().replace(R.id.container_nutrition, new MyDiet(), null).commit();
 
 

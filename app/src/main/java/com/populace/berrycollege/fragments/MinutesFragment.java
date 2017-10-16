@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
-import android.webkit.WebSettings.ZoomDensity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -32,13 +31,16 @@ public class MinutesFragment extends Fragment {
 
         minutes.setWebViewClient(new MyWebViewClient());
         minutes.getSettings().setJavaScriptEnabled(true);
-        minutes.getSettings().setPluginState(WebSettings.PluginState.ON);
+            //minutes.getSettings().setPluginState(WebSettings.PluginState.ON);
         minutes.getSettings().setBuiltInZoomControls(true);
-        minutes.getSettings().setDefaultZoom(ZoomDensity.FAR);
-        minutes.getSettings().setUseWideViewPort(true);
-        minutes.getSettings().setLoadWithOverviewMode(true);
+            minutes.getSettings().setPluginState(WebSettings.PluginState.ON);
+            //minutes.getSettings().setDefaultZoom(ZoomDensity.FAR);
+            // minutes.getSettings().setUseWideViewPort(true);
+            //  minutes.getSettings().setLoadWithOverviewMode(true);
         // minutes.loadUrl("file:///android_asset/img.html");
-        minutes.loadUrl("file:///android_asset/img.html");
+            // minutes.loadUrl("file:///android_asset/img.html");
+            minutes.loadUrl("https://docs.google.com/gview?embedded=true&url=" + "http://berry.edu/uploadedFiles/Website/Student_Affairs/Athletics/_Assets/Documents/BerryGroupFitness.pdf");
+
         }
         else
         {

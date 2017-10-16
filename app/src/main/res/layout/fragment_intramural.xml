@@ -7,38 +7,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9">
+        android:layout_weight="1">
         <FrameLayout
+            android:id="@+id/container_fragmen_intramural"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/container_fragmen_intramural">
+            android:layout_height="match_parent">
         </FrameLayout>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/btnSchedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/btntab_challenges1"
-                android:layout_weight="1"
-                />
-            <ImageView
-                android:id="@+id/btnRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/btntab_community0"
-                android:layout_weight="1"
-                />
-        </LinearLayout>
-    </LinearLayout>
+
 </LinearLayout>
 
 

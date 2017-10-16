@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="androidsdk-3.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.buddy/androidsdk/3.0.0/47affffc6bb94287ccd06d17d8664a703a8af917/androidsdk-3.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.buddy/androidsdk/3.0.0/d85d63ba413e8bcf6c9e3e569ce8bb9d195a539c/androidsdk-3.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

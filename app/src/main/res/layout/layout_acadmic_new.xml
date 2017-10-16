@@ -2,16 +2,16 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:weightSum="1"
+    android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
+    android:weightSum="1"
     >
     <LinearLayout
+        android:id="@+id/banner_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/banner_container"
         android:layout_alignParentTop="true"
         >
         <RelativeLayout
@@ -20,39 +20,39 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/background__academic"
-                android:scaleType="fitXY"
                 android:layout_marginBottom="32dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/background__academic"
                 />
 
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/academic_icon1"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:src="@drawable/academic_icon1"
                 />
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/fragements_container"
         android:layout_width="match_parent"
-        android:layout_below="@+id/banner_container"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/tab_bar"
-        android:layout_height="wrap_content">
+        android:layout_below="@+id/banner_container">
         <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/container">
+            android:layout_height="match_parent">
         </FrameLayout>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/tab_bar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/acadmic_light"
         android:gravity="center"
-        android:id="@+id/tab_bar"
-        android:layout_alignParentBottom="true"
         >
 
 
@@ -60,11 +60,11 @@
             android:id="@+id/ivcalander"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:src="@drawable/academic_1"
-            android:padding="5dp"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
             android:background="@color/acadmic_dark"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/academic_1"
 
             />
 
@@ -75,10 +75,10 @@
             android:layout_height="63dp"
             android:layout_weight="1"
 
-            android:src="@drawable/academic_2"
-            android:scaleType="fitCenter"
             android:background="@color/acadmic_light"
             android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/academic_2"
             />
 
 
@@ -87,11 +87,11 @@
             android:id="@+id/ivlibrary"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:src="@drawable/academic_3"
-            android:scaleType="fitCenter"
             android:layout_weight="1"
             android:background="@color/acadmic_light"
             android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/academic_3"
             />
 
 
@@ -100,11 +100,11 @@
             android:id="@+id/ivtutoring"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:src="@drawable/academic_4"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
             android:background="@color/acadmic_light"
             android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/asc_image"
             />
 
     </LinearLayout>

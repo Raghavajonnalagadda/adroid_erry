@@ -64,22 +64,21 @@ import java.util.List;
  * tablets) or a {@link GTCRollCallDetailActivity} on handsets.
  */
 public class GTCRollCallDetailFragment extends Fragment {
-	GTCPhoto photo;
+    /**
+     * The fragment argument representing the item ID that this fragment
+     * represents.
+     */
+    public static final String ARG_ITEM_ID = "item_id";
+    GTCPhoto photo;
 	Bitmap bitmap = null;
 	String fb_firstname;
 	String fb_lname;
 	ParseFile thumb=null;
 	 Bitmap thumbBmp = null;
-	  EditText txtComment; 
-		 Button btnComment;
+    EditText txtComment;
+    Button btnComment;
 		   TextView btnAddComment;
 		   boolean new_pic=false;
-	/**
-	 * The fragment argument representing the item ID that this fragment
-	 * represents.
-	 */
-	public static final String ARG_ITEM_ID = "item_id";
-
 	/**
 	 * The dummy content this fragment is presenting.
 	 */
@@ -359,8 +358,8 @@ public class GTCRollCallDetailFragment extends Fragment {
 						photo = new GTCPhoto();
 						photo.load(map);
 						ParseQuery<GTCPhoto> q = ParseQuery.getQuery(GTCPhoto.class);
-						q.whereEqualTo("objectId", photo.getObjectId());
-						photo = q.find().get(0);
+                        q.whereEqualTo("objectId", map.getString("objectId"));
+                        photo = q.find().get(0);
 					} catch (JSONException e) {
 						
 						e.printStackTrace();
@@ -583,7 +582,8 @@ public class GTCRollCallDetailFragment extends Fragment {
 						public void done(List<ParseUser> arg0, ParseException arg1) {
 							if(arg0.size() > 0){
 								ParseUser user = arg0.get(0);
-								((GTCUser)user.get("profile")).fetchInBackground(new GetCallback<GTCUser>(){
+                                if (user.get("profile") != null)
+                                    ((GTCUser)user.get("profile")).fetchInBackground(new GetCallback<GTCUser>(){
 
 									@Override
 									public void done(final GTCUser u,
@@ -663,9 +663,9 @@ public class GTCRollCallDetailFragment extends Fragment {
 				@Override
 				public void done(List<ParseObject> arg0, ParseException arg1) {
 					if(arg0 != null){
-						if(arg0.size() > 0){
-							final ParseObject obj = (ParseObject)arg0.get(0);
-							btnLike.setTag(obj);
+						if(arg0.size() > 0) {
+                            final ParseObject obj = arg0.get(0);
+                            btnLike.setTag(obj);
 							if(obj.getInt("likeStatus") == 1){
 								btnLike.setBackgroundResource(R.drawable.liked_icon);
 							}else{
@@ -691,10 +691,10 @@ public class GTCRollCallDetailFragment extends Fragment {
 						@Override
 						public void done(List<ParseObject> arg0, ParseException arg1) {
 							if(arg0 != null){
-								if(arg0.size() > 0){
-									final ParseObject obj = (ParseObject)arg0.get(0);
-									
-									if(obj.getInt("likeStatus") == 1){
+								if(arg0.size() > 0) {
+                                    final ParseObject obj = arg0.get(0);
+
+                                    if(obj.getInt("likeStatus") == 1){
 												obj.put("likeStatus", 0);
 												photo.increment("imagelikes",  - 1); 
 											}else{

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BERRYCOLLEGE</string>
     <string name="action_settings">Settings</string>
-    <string name="action_bar">Berry College Wellness App</string>
+
     <string name="fb_appid">1664423050490889</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -31,8 +31,9 @@
     <string name="Spinner_Title">Program Date</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="Application_Id">vtzK8geUVfMtOwhyyrTQWXSd4GdimS0wNua48qYw</string>
-    <string name="Client_Key">h2lG8TXhgVZMfemtQoNTAdRp5CAMSj0vrpJxAjt2</string>
+    <string name="Application_Id">bb7bfa72-d8c1-4120-bf33-2c9663fac41e</string>
+    <string name="Client_Key"></string>
+    <string name="Ok_text">OK</string>
 
     <!-- Twitter Configurations -->
     <string name="twitter_callback">http://tourism.populaceinc.com/</string>

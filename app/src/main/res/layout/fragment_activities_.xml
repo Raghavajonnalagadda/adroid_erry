@@ -9,34 +9,48 @@
         android:layout_height="0dp"
         android:layout_weight="0.9">
         <FrameLayout
+            android:id="@+id/container_fragment_activities"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/container_fragment_activities">
+            android:layout_height="match_parent">
         </FrameLayout>
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1">
+        android:layout_weight="0.1"
+        android:background="#ffffff"
+        android:padding="2dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
-            <ImageView
+
+            <Button
                 android:id="@+id/btnOnCampus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/btntab_challenges1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                />
-            <ImageView
+                android:background="@drawable/buttonstages"
+
+                android:text="On Campus"
+
+                android:textAllCaps="false"
+                android:textColor="@drawable/textcolorstates" />
+
+            <Button
                 android:id="@+id/btnOffCampus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/btntab_community0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                />
+                android:background="@drawable/buttonstages"
+                android:text="Off Campus"
+                android:textAllCaps="false"
+                android:textColor="@drawable/textcolorstates" />
+
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

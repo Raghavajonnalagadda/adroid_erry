@@ -31,6 +31,7 @@ public class RiverRentalFragment extends Fragment {
         pd.setCancelable(false);
         pd.show();
         pd.setCancelable(false);
+            riverrental.getSettings().setJavaScriptEnabled(true);
         riverrental.setWebViewClient(new MyWebViewClient());
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);

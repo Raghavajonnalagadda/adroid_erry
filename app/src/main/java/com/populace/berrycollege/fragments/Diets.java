@@ -37,7 +37,8 @@ public class Diets extends Fragment {
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         String diet = bs.getString(ParseDataManager.TAG_NUTRITION_DIETS);
-        diets.loadData(diet, "text/html", "UTF-8");
+            diets.loadUrl(diet);
+            // diets.loadData(diet, "text/html", "UTF-8");
     }
     else
     {

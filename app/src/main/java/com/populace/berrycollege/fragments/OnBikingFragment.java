@@ -35,7 +35,9 @@ public class OnBikingFragment extends Fragment  {
         bs=new BerrySession(this.getActivity());
         SharedPreferences settings = this.getActivity().getSharedPreferences(this.getActivity().getPackageName(), 0);
         String intramurals = bs.getString(ParseDataManager.TAG__PHYSICAL_INTRAMURAL_ON_BIKING);
-        onbiking.loadUrl(intramurals);
+        // onbiking.loadUrl(intramurals);
+
+        onbiking.loadUrl("http://www.berry.edu/outdoorrec/");
         return v;
 
     }
